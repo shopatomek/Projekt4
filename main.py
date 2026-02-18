@@ -15,13 +15,7 @@ if __name__ == "__main__":
     # Validate data
     validated_data = validate_data(parsed_data)
 
-    logger.info(f"Final validated data: {validated_data}")
-
-
-
-
-
-
-
-
-
+    logger.info(
+        f"Final validated data ({len(validated_data)} items): "
+        f"{validated_data}"
+    )

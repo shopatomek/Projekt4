@@ -2,12 +2,15 @@ from app.logger import logger
 
 
 def validate_data(parsed_data):
-    logger.info("Starting data validation")
+    logger.info("Validator: start validation")
     validated = []
-    for item in parsed_data:
+
+    for idx, item in enumerate(parsed_data, start=1):
         if item["age"] > 0:
             validated.append(item)
+            logger.info(f"Validator: item {idx} valid -> {item}")
         else:
-            logger.error(f"Invalid age for item {item}")
-    logger.info(f"Validation finished, validated {len(validated)} items")
+            logger.error(f"Validator: invalid age for item {idx} -> {item}")
+
+    logger.info(f"Validator: finished, validated {len(validated)} items")
     return validated
