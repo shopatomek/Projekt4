@@ -1,7 +1,7 @@
 from app.logger import logger
 
 
-def scrape_data(raw_data):
+def parse_data(raw_data):
     logger.info("Starting data parsing")
     parsed = []
     for item in raw_data:

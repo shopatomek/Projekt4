@@ -1,0 +1,9 @@
+2026-02-18 14:27:55,552 | INFO | Application started
+2026-02-18 14:27:55,553 | INFO | Starting data scraping
+2026-02-18 14:27:55,553 | INFO | Scraper finished, got 3 items
+2026-02-18 14:27:55,553 | INFO | Starting data parsing
+2026-02-18 14:27:55,553 | ERROR | Error parsing item {'name': 'Bob', 'age': 'thirty'}: invalid literal for int() with base 10: 'thirty'
+2026-02-18 14:27:55,554 | INFO | Parser finished, parsed 1 items
+2026-02-18 14:27:55,554 | INFO | Starting data validation
+2026-02-18 14:27:55,554 | INFO | Validation finished, validated 2 items
+2026-02-18 14:27:55,554 | INFO | Final validated data: [{'name': 'Alice', 'age': 25}, {'name': 'Charlie', 'age': 30}]

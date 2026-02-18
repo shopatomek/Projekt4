@@ -1,14 +1,19 @@
 import logging
 import os
 
-# Upewnij się, że katalog "logs" istnieje
-os.makedirs("logs", exist_ok=True)
+# absolutna ścieżka do katalogu Projekt4
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+LOG_DIR = os.path.join(PROJECT_ROOT, "logs")
+os.makedirs(LOG_DIR, exist_ok=True)
 
+# plik logów
+LOG_FILE = os.path.join(LOG_DIR, "app.log")
+
+# konfiguracja logera
 logging.basicConfig(
-    filename="logs/app.log",
+    filename=LOG_FILE,
     level=logging.INFO,
     format="%(asctime)s | %(levelname)s | %(message)s"
 )
-# Utwórz logger dla tego modułu
-logger = logging.getLogger(__name__)
 
+logger = logging.getLogger(__name__)
