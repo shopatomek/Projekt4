@@ -1,0 +1,2 @@
+2026-02-18 12:28:50,619 | INFO | Application started
+2026-02-18 12:28:50,620 | ERROR | Unhandled exception occurred: division by zero

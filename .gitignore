@@ -1,0 +1,22 @@
+# Python - skompilowane pliki
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Pytest i testowanie
+.pytest_cache/
+.cache/
+.tox/
+.coverage
+coverage.xml
+htmlcov/
+pytestdebug.log
+
+# Środowiska wirtualne
+venv/
+.venv/
+env/
+.env/
+
+# Konfiguracja VS Code (opcjonalnie)
+.vscode/
