@@ -20,3 +20,4 @@ env/
 
 # Konfiguracja VS Code (opcjonalnie)
 .vscode/
+*.md
