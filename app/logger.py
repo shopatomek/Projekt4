@@ -27,16 +27,6 @@ logger.setLevel(logging.INFO)
 logger.addHandler(handler)
 
 # dodajemy opcjonalnie console output podczas developmentu
-console_handler = logging.StreamHandler()
-console_handler.setFormatter(formatter)
-logger.addHandler(console_handler)
-
-# dodajemy opcjonalnie file output podczas developmentu
-dev_handler = RotatingFileHandler(
-    LOG_FILE,
-    maxBytes=1 * 1024 * 1024,  # 1 MB
-    backupCount=5,             # maksymalnie 5 starych plików
-    encoding="utf-8"
-)
-dev_handler.setFormatter(formatter)
-logger.addHandler(dev_handler)
+# console_handler = logging.StreamHandler()
+# console_handler.setFormatter(formatter)
+# logger.addHandler(console_handler)
