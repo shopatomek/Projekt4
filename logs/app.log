@@ -857,3 +857,9 @@ ValueError: invalid literal for int() with base 10: 'unknown'
 2026-02-19 14:21:01,383 | INFO | AI Analyzer: loaded 856 log lines
 2026-02-19 14:21:01,419 | INFO | AI Analyzer: loaded 857 log lines
 2026-02-19 14:21:01,422 | INFO | AI Analyzer: payload prepared with status: error
+2026-02-19 14:35:02,961 | INFO | AI Analyzer: loaded 859 log lines
+2026-02-19 14:35:02,996 | INFO | AI Analyzer: loaded 860 log lines
+2026-02-19 14:35:03,025 | INFO | AI Analyzer: loaded 861 log lines
+2026-02-19 14:35:03,057 | INFO | AI Analyzer: loaded 862 log lines
+2026-02-19 14:35:03,085 | INFO | AI Analyzer: loaded 863 log lines
+2026-02-19 14:35:03,088 | INFO | AI Analyzer: payload prepared with status: error
