@@ -1,16 +1,12 @@
 import os
 import re
+from datetime import datetime
 from collections import Counter, defaultdict
 from app.logger import LOG_FILE, logger
 
 
 def read_log_file():
-    """
-    Wczytuje cały plik logów do pamięci.
-
-    Zwraca:
-        list[str] – lista linii z pliku logów
-    """
+    """Wczytuje cały plik logów do pamięci."""
     if not os.path.exists(LOG_FILE):
         logger.error("AI Analyzer: log file does not exist")
         return []
@@ -23,37 +19,18 @@ def read_log_file():
 
 
 def extract_log_levels(log_lines):
-    """
-    Zlicza poziomy logów (INFO, ERROR, WARNING itd.).
-
-    Argumenty:
-        log_lines (list[str])
-
-    Zwraca:
-        dict[str, int] – liczba wystąpień każdego poziomu logu
-    """
+    """Zlicza poziomy logów (INFO, ERROR, WARNING itd.)."""
     levels = Counter()
-
     for line in log_lines:
         match = re.search(r"\|\s(INFO|ERROR|WARNING|DEBUG)\s\|", line)
         if match:
             levels[match.group(1)] += 1
-
     return dict(levels)
 
 
 def extract_modules(log_lines):
-    """
-    Przypisuje logi do modułów (Scraper / Parser / Validator).
-
-    Wykorzystuje konwencję:
-        'Scraper:', 'Parser:', 'Validator:'
-
-    Zwraca:
-        dict[str, int] – liczba logów na moduł
-    """
+    """Przypisuje logi do modułów (Scraper / Parser / Validator)."""
     modules = Counter()
-
     for line in log_lines:
         if "Scraper:" in line:
             modules["Scraper"] += 1
@@ -61,53 +38,31 @@ def extract_modules(log_lines):
             modules["Parser"] += 1
         elif "Validator:" in line:
             modules["Validator"] += 1
-
     return dict(modules)
 
 
 def extract_errors_with_tracebacks(log_lines):
-    """
-    Wyciąga błędy wraz z tracebackami.
-
-    Traceback = pełna ścieżka błędu Pythona (linia po linii).
-
-    Zwraca:
-        list[dict] – lista błędów w formacie strukturalnym
-    """
+    """Wyciąga błędy wraz z tracebackami."""
     errors = []
     current_error = None
 
     for line in log_lines:
         if "| ERROR |" in line:
-            # Nowy błąd
             current_error = {
                 "message": line.strip(),
                 "traceback": []
             }
             errors.append(current_error)
-
         elif current_error and line.startswith("Traceback"):
             current_error["traceback"].append(line.strip())
-
         elif current_error and current_error["traceback"]:
-            # Kolejne linie tracebacka
             current_error["traceback"].append(line.rstrip())
-
     return errors
 
 
 def summarize_errors(errors):
-    """
-    Tworzy statystyki błędów – idealne wejście dla AI.
-
-    Argumenty:
-        errors (list[dict])
-
-    Zwraca:
-        dict – zagregowane informacje o błędach
-    """
+    """Tworzy statystyki typów błędów."""
     summary = defaultdict(int)
-
     for err in errors:
         if "ValueError" in err["message"]:
             summary["ValueError"] += 1
@@ -115,34 +70,49 @@ def summarize_errors(errors):
             summary["ValidationError"] += 1
         else:
             summary["OtherError"] += 1
-
     return dict(summary)
 
 
 def build_ai_payload():
     """
-    Główna funkcja modułu.
-
-    Składa pełny, uporządkowany raport,
-    który w przyszłości trafi 1:1 do modelu AI.
-
-    Zwraca:
-        dict – gotowy payload dla AI
+    Główna funkcja: Zbiera dane i układa je w 'Kontrakt AI'.
+    To tutaj łączymy Twoją logikę z nową strukturą.
     """
-    log_lines = read_log_file()
-
-    if not log_lines:
+    # 1. Pobieramy surowe dane Twoimi funkcjami
+    lines = read_log_file()
+    if not lines:
         return {}
 
+    errors = extract_errors_with_tracebacks(lines)
+    error_count = len(errors)
+
+    # 2. Logika walidacji (ustalamy status na podstawie liczby błędów)
+    status = "ok"
+    if error_count > 0:
+        status = "error" if error_count > 5 else "warning"
+
+    # 3. Budujemy finalny, zagnieżdżony słownik (Payload)
     payload = {
-        "total_log_lines": len(log_lines),
-        "log_levels": extract_log_levels(log_lines),
-        "modules_activity": extract_modules(log_lines),
-        "errors": extract_errors_with_tracebacks(log_lines),
-        "error_summary": summarize_errors(
-            extract_errors_with_tracebacks(log_lines)
-        ),
+        "core": {
+            "total_log_lines": len(lines),
+            "generated_at": datetime.now().isoformat()
+        },
+        "logs": {
+            "log_levels": extract_log_levels(lines),
+            "modules_activity": extract_modules(lines),
+            "errors": errors,
+            "error_summary": summarize_errors(errors)
+        },
+        "validation": {
+            "status": status,
+            "error_count": error_count
+        },
+        "instructions": (
+            "Przeanalizuj dostarczone logi systemowe. Skup się na błędach "
+            "w sekcji 'errors'. Zidentyfikuj powtarzające się wzorce i "
+            "zaproponuj rozwiązanie."
+        )
     }
 
-    logger.info("AI Analyzer: payload prepared successfully")
+    logger.info(f"AI Analyzer: payload prepared with status: {status}")
     return payload
