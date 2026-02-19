@@ -847,3 +847,5 @@ ValueError: invalid literal for int() with base 10: 'unknown'
 2026-02-19 09:18:25,426 | INFO | Validator: item 12 valid -> {'name': 'Olivia', 'age': 28}
 2026-02-19 09:18:25,426 | INFO | Validator: finished, validated 9 items
 2026-02-19 09:18:25,426 | INFO | Final validated data (9 items): [{'name': 'Alice', 'age': 25}, {'name': 'Charlie', 'age': 30}, {'name': 'Eve', 'age': 22}, {'name': 'Grace', 'age': 29}, {'name': 'Ivan', 'age': 31}, {'name': 'Judy', 'age': 27}, {'name': 'Laura', 'age': 26}, {'name': 'Niaj', 'age': 33}, {'name': 'Olivia', 'age': 28}]
+2026-02-19 11:03:28,693 | INFO | AI Analyzer: loaded 849 log lines
+2026-02-19 11:03:28,696 | INFO | AI Analyzer: payload prepared successfully
