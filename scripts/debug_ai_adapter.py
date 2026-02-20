@@ -2,17 +2,17 @@ from app.ai_analyzer import build_ai_payload
 from app.ai_adapter import build_prompt
 
 
-def test_build_prompt_returns_string():
+def test_build_prompt_output():
     # 1. Pobieramy dane (Payload)
     payload = build_ai_payload()
     
     # 2. Generujemy prompt na podstawie danych
     prompt = build_prompt(payload)
     
-    # 3. Wyświetlamy wynik w konsoli (to co chciałeś zobaczyć)
-    print("\n" + "="*30)
-    print("DEBUG: GENERATED PROMPT")
-    print("="*30 + "\n")
+    # 3. Wyświetlamy wynik w konsoli
+    print("\n" + "🤖" * 15)
+    print("DEBUG: GENERATED PROMPT FOR AI")
+    print("🤖" * 15 + "\n")
     
     print(prompt)
     
@@ -20,17 +20,20 @@ def test_build_prompt_returns_string():
     print("END OF PROMPT")
     print("="*30 + "\n")
 
-    # 4. Weryfikacja (Logika testowa)
-    # Jeśli któryś z tych assertów zawiedzie, skrypt wyrzuci błąd.
-    # Jeśli jest cisza - znaczy, że wszystko jest zgodne z kontraktem.
+    # 4. Weryfikacja (Dostosowana do nowej logiki)
     assert isinstance(prompt, str), "Prompt powinien być ciągiem znaków (str)"
-    assert "SYSTEM CONTEXT" in prompt, "Brak sekcji SYSTEM CONTEXT w prompcie"
-    assert "ERROR SUMMARY" in prompt, "Brak sekcji ERROR SUMMARY w prompcie"
-    assert "INSTRUCTIONS" in prompt, "Brak sekcji INSTRUCTIONS w prompcie"
+    assert "SYSTEM CONTEXT" in prompt, "Brak sekcji SYSTEM CONTEXT"
+    assert "UNIQUE ERROR ANALYSIS" in prompt, "Brak sekcji UNIQUE ERROR \
+        ANALYSIS"
+    assert "INSTRUCTIONS" in prompt, "Brak sekcji INSTRUCTIONS"
     
-    print("✅ Wszystkie asercje zaliczone: Prompt jest poprawny technicznie.")
+    # Sprawdzamy czy widać grupowanie jeśli są błędy
+    if payload["validation"]["error_count"] > 0:
+        assert "OCCURRENCES:" in prompt, "Brak informacji o liczbie wystąpień \
+            błędów"
+
+    print("✅ Sukces: Prompt wygenerowany poprawnie zgodnie z nowym formatem.")
 
 
-# KLUCZOWY ELEMENT: To uruchamia Twoją funkcję powyżej
 if __name__ == "__main__":
-    test_build_prompt_returns_string()
+    test_build_prompt_output()

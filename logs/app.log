@@ -921,3 +921,9 @@ ValueError: invalid literal for int() with base 10: 'unknown'
 2026-02-20 16:02:52,067 | INFO | AI Analyzer: payload prepared with status: error
 2026-02-20 16:04:27,020 | INFO | AI Analyzer: loaded 921 log lines
 2026-02-20 16:04:27,026 | INFO | AI Analyzer: payload prepared with status: error
+2026-02-20 16:20:06,547 | INFO | AI Analyzer: payload prepared. Reduced 80 raw         errors to 7 unique types.
+2026-02-20 16:23:08,783 | INFO | AI Analyzer: payload prepared. Reduced 80 raw         errors to 7 unique types.
+2026-02-20 16:26:56,461 | INFO | AI Analyzer: payload prepared. Reduced 80 raw         errors to 7 unique types.
+2026-02-20 16:34:31,530 | INFO | AI Analyzer: payload prepared. Reduced 80 raw         errors to 7 unique types.
+2026-02-20 16:36:15,585 | INFO | AI Analyzer: payload prepared. Reduced 80 raw         errors to 7 unique types.
+2026-02-20 16:37:15,008 | INFO | AI Analyzer: payload prepared. Reduced 80 raw         errors to 7 unique types.

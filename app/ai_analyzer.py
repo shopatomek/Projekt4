@@ -1,25 +1,22 @@
 import os
 import re
 from datetime import datetime
-from collections import Counter, defaultdict
+from collections import Counter
 from app.logger import LOG_FILE, logger
+
+# Regex do wykrywania początku nowej linii logu (timestamp)
+TIMESTAMP_PATTERN = r"^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2},\d{3}"
 
 
 def read_log_file():
-    """Wczytuje cały plik logów do pamięci."""
     if not os.path.exists(LOG_FILE):
         logger.error("AI Analyzer: log file does not exist")
         return []
-
     with open(LOG_FILE, "r", encoding="utf-8") as f:
-        lines = f.readlines()
-
-    logger.info(f"AI Analyzer: loaded {len(lines)} log lines")
-    return lines
+        return f.readlines()
 
 
 def extract_log_levels(log_lines):
-    """Zlicza poziomy logów (INFO, ERROR, WARNING itd.)."""
     levels = Counter()
     for line in log_lines:
         match = re.search(r"\|\s(INFO|ERROR|WARNING|DEBUG)\s\|", line)
@@ -29,69 +26,86 @@ def extract_log_levels(log_lines):
 
 
 def extract_modules(log_lines):
-    """Przypisuje logi do modułów (Scraper / Parser / Validator)."""
     modules = Counter()
     for line in log_lines:
-        if "Scraper:" in line:
-            modules["Scraper"] += 1
-        elif "Parser:" in line:
-            modules["Parser"] += 1
-        elif "Validator:" in line:
-            modules["Validator"] += 1
+        for mod in ["Scraper", "Parser", "Validator"]:
+            if f"{mod}:" in line:
+                modules[mod] += 1
     return dict(modules)
 
 
 def extract_errors_with_tracebacks(log_lines):
-    """Wyciąga błędy wraz z tracebackami."""
+    """
+    Wyciąga błędy, ale zatrzymuje się, gdy napotka nową linię logu (np. INFO).
+    Eliminuje to 'szum' w tracebackach.
+    """
     errors = []
     current_error = None
 
     for line in log_lines:
-        if "| ERROR |" in line:
-            current_error = {
-                "message": line.strip(),
-                "traceback": []
-            }
-            errors.append(current_error)
-        elif current_error and line.startswith("Traceback"):
-            current_error["traceback"].append(line.strip())
-        elif current_error and current_error["traceback"]:
-            current_error["traceback"].append(line.rstrip())
+        # Sprawdzamy, czy linia zaczyna się od daty (początek nowego logu)
+        is_new_log_entry = re.match(TIMESTAMP_PATTERN, line)
+
+        if is_new_log_entry:
+            if "| ERROR |" in line:
+                # Rozpoczynamy zbieranie nowego błędu
+                current_error = {
+                    "message": line.strip(),
+                    "traceback": []
+                }
+                errors.append(current_error)
+            else:
+                # To jest nowy log, ale NIE błąd (np. INFO) -> przestajemy zbierać traceback
+                current_error = None
+        else:
+            # Linia nie ma daty, więc jest kontynuacją (Traceback lub dane)
+            if current_error:
+                # Dodajemy tylko jeśli nie jest pustą linią
+                clean_line = line.strip()
+                if clean_line:
+                    current_error["traceback"].append(clean_line)
+    
     return errors
 
 
-def summarize_errors(errors):
-    """Tworzy statystyki typów błędów."""
-    summary = defaultdict(int)
+def group_and_deduplicate_errors(errors):
+    """
+    Zmienia listę 65 błędów w krótką listę unikalnych problemów z licznikiem.
+    """
+    grouped = {}
+
     for err in errors:
-        if "ValueError" in err["message"]:
-            summary["ValueError"] += 1
-        elif "invalid age" in err["message"]:
-            summary["ValidationError"] += 1
+        # Tworzymy klucz na podstawie treści błędu (wycinamy timestamp dla lepszego grupowania)
+        # Zakładamy, że treść błędu jest po drugim znaku '|'
+        parts = err["message"].split("|")
+        msg_key = parts[2].strip() if len(parts) >= 3 else err["message"]
+
+        if msg_key not in grouped:
+            grouped[msg_key] = {
+                "message": msg_key,
+                "count": 1,
+                "sample_traceback": err["traceback"][:10]  # Max 10 linii tracebacku dla oszczędności
+            }
         else:
-            summary["OtherError"] += 1
-    return dict(summary)
+            grouped[msg_key]["count"] += 1
+
+    return list(grouped.values())
 
 
 def build_ai_payload():
-    """
-    Główna funkcja: Zbiera dane i układa je w 'Kontrakt AI'.
-    To tutaj łączymy Twoją logikę z nową strukturą.
-    """
-    # 1. Pobieramy surowe dane Twoimi funkcjami
     lines = read_log_file()
     if not lines:
         return {}
 
-    errors = extract_errors_with_tracebacks(lines)
-    error_count = len(errors)
-
-    # 2. Logika walidacji (ustalamy status na podstawie liczby błędów)
+    raw_errors = extract_errors_with_tracebacks(lines)
+    # KLUCZOWA ZMIANA: Grupujemy błędy przed wysyłką
+    unique_errors = group_and_deduplicate_errors(raw_errors)
+    
+    error_count = len(raw_errors)
     status = "ok"
     if error_count > 0:
         status = "error" if error_count > 5 else "warning"
 
-    # 3. Budujemy finalny, zagnieżdżony słownik (Payload)
     payload = {
         "core": {
             "total_log_lines": len(lines),
@@ -100,19 +114,21 @@ def build_ai_payload():
         "logs": {
             "log_levels": extract_log_levels(lines),
             "modules_activity": extract_modules(lines),
-            "errors": errors,
-            "error_summary": summarize_errors(errors)
+            "unique_errors": unique_errors,  # AI dostaje czytelną listę
+            "total_errors_detected": error_count
         },
         "validation": {
             "status": status,
             "error_count": error_count
         },
         "instructions": (
-            "Przeanalizuj dostarczone logi systemowe. Skup się na błędach "
-            "w sekcji 'errors'. Zidentyfikuj powtarzające się wzorce i "
-            "zaproponuj rozwiązanie."
+            "Przeanalizuj unikalne błędy w sekcji 'unique_errors'. "
+            "Zwróć uwagę na pole 'count' - im większe, "
+            "tym błąd jest pilniejszy. "
+            "Zaproponuj naprawę dla najczęściej występujących problemów."
         )
     }
 
-    logger.info(f"AI Analyzer: payload prepared with status: {status}")
+    logger.info(f"AI Analyzer: payload prepared. Reduced {error_count} raw \
+        errors to {len(unique_errors)} unique types.")
     return payload
