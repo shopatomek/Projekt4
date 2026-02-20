@@ -863,3 +863,61 @@ ValueError: invalid literal for int() with base 10: 'unknown'
 2026-02-19 14:35:03,057 | INFO | AI Analyzer: loaded 862 log lines
 2026-02-19 14:35:03,085 | INFO | AI Analyzer: loaded 863 log lines
 2026-02-19 14:35:03,088 | INFO | AI Analyzer: payload prepared with status: error
+2026-02-20 14:27:32,295 | INFO | AI Analyzer: loaded 865 log lines
+2026-02-20 14:27:32,299 | INFO | AI Analyzer: payload prepared with status: error
+2026-02-20 14:28:47,924 | INFO | AI Analyzer: loaded 867 log lines
+2026-02-20 14:28:47,957 | INFO | AI Analyzer: loaded 868 log lines
+2026-02-20 14:28:47,988 | INFO | AI Analyzer: loaded 869 log lines
+2026-02-20 14:28:48,020 | INFO | AI Analyzer: loaded 870 log lines
+2026-02-20 14:28:48,051 | INFO | AI Analyzer: loaded 871 log lines
+2026-02-20 14:28:48,056 | INFO | AI Analyzer: payload prepared with status: error
+2026-02-20 14:28:48,093 | INFO | AI Analyzer: loaded 873 log lines
+2026-02-20 14:28:48,097 | INFO | AI Analyzer: payload prepared with status: error
+2026-02-20 14:30:31,962 | INFO | AI Analyzer: loaded 875 log lines
+2026-02-20 14:30:31,965 | INFO | AI Analyzer: payload prepared with status: error
+2026-02-20 14:43:49,044 | INFO | AI Analyzer: loaded 877 log lines
+2026-02-20 14:43:49,047 | INFO | AI Analyzer: payload prepared with status: error
+2026-02-20 14:51:48,202 | INFO | AI Analyzer: loaded 879 log lines
+2026-02-20 14:51:48,232 | INFO | AI Analyzer: loaded 880 log lines
+2026-02-20 14:51:48,260 | INFO | AI Analyzer: loaded 881 log lines
+2026-02-20 14:51:48,290 | INFO | AI Analyzer: loaded 882 log lines
+2026-02-20 14:51:48,317 | INFO | AI Analyzer: loaded 883 log lines
+2026-02-20 14:51:48,320 | INFO | AI Analyzer: payload prepared with status: error
+2026-02-20 14:51:54,037 | INFO | AI Analyzer: loaded 885 log lines
+2026-02-20 14:51:54,071 | INFO | AI Analyzer: loaded 886 log lines
+2026-02-20 14:51:54,113 | INFO | AI Analyzer: loaded 887 log lines
+2026-02-20 14:51:54,144 | INFO | AI Analyzer: loaded 888 log lines
+2026-02-20 14:51:54,174 | INFO | AI Analyzer: loaded 889 log lines
+2026-02-20 14:51:54,177 | INFO | AI Analyzer: payload prepared with status: error
+2026-02-20 14:53:58,840 | INFO | AI Analyzer: loaded 891 log lines
+2026-02-20 14:53:58,882 | INFO | AI Analyzer: loaded 892 log lines
+2026-02-20 14:53:58,916 | INFO | AI Analyzer: loaded 893 log lines
+2026-02-20 14:53:58,949 | INFO | AI Analyzer: loaded 894 log lines
+2026-02-20 14:53:58,989 | INFO | AI Analyzer: loaded 895 log lines
+2026-02-20 14:53:58,995 | INFO | AI Analyzer: payload prepared with status: error
+2026-02-20 14:55:43,652 | INFO | AI Analyzer: loaded 897 log lines
+2026-02-20 14:55:43,656 | INFO | AI Analyzer: payload prepared with status: error
+2026-02-20 15:12:19,799 | INFO | AI Analyzer: loaded 899 log lines
+2026-02-20 15:12:19,803 | INFO | AI Analyzer: payload prepared with status: error
+2026-02-20 15:39:41,632 | INFO | AI Analyzer: loaded 901 log lines
+2026-02-20 15:39:41,636 | INFO | AI Analyzer: payload prepared with status: error
+2026-02-20 15:45:18,906 | INFO | AI Analyzer: loaded 903 log lines
+2026-02-20 15:45:18,910 | INFO | AI Analyzer: payload prepared with status: error
+2026-02-20 15:48:51,507 | INFO | AI Analyzer: loaded 905 log lines
+2026-02-20 15:48:51,511 | INFO | AI Analyzer: payload prepared with status: error
+2026-02-20 15:49:26,765 | INFO | AI Analyzer: loaded 907 log lines
+2026-02-20 15:49:26,769 | INFO | AI Analyzer: payload prepared with status: error
+2026-02-20 15:52:25,815 | INFO | AI Analyzer: loaded 909 log lines
+2026-02-20 15:52:25,818 | INFO | AI Analyzer: payload prepared with status: error
+2026-02-20 15:52:51,868 | INFO | AI Analyzer: loaded 911 log lines
+2026-02-20 15:52:51,871 | INFO | AI Analyzer: payload prepared with status: error
+2026-02-20 15:58:35,851 | INFO | AI Analyzer: loaded 913 log lines
+2026-02-20 15:58:35,854 | INFO | AI Analyzer: payload prepared with status: error
+2026-02-20 15:58:35,912 | INFO | AI Analyzer: loaded 915 log lines
+2026-02-20 15:58:35,916 | INFO | AI Analyzer: payload prepared with status: error
+2026-02-20 16:00:48,602 | INFO | AI Analyzer: loaded 917 log lines
+2026-02-20 16:00:48,605 | INFO | AI Analyzer: payload prepared with status: error
+2026-02-20 16:02:52,063 | INFO | AI Analyzer: loaded 919 log lines
+2026-02-20 16:02:52,067 | INFO | AI Analyzer: payload prepared with status: error
+2026-02-20 16:04:27,020 | INFO | AI Analyzer: loaded 921 log lines
+2026-02-20 16:04:27,026 | INFO | AI Analyzer: payload prepared with status: error
