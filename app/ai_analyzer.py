@@ -55,8 +55,9 @@ def extract_errors_with_tracebacks(log_lines):
                 }
                 errors.append(current_error)
             else:
-                # To jest nowy log, ale NIE błąd (np. INFO) -> przestajemy zbierać traceback
-                current_error = None
+                # To jest nowy log, ale NIE błąd (np. INFO) -> 
+                # kończymy zbieranie poprzedniego błędu (jeśli był)
+                pass
         else:
             # Linia nie ma daty, więc jest kontynuacją (Traceback lub dane)
             if current_error:
@@ -75,8 +76,7 @@ def group_and_deduplicate_errors(errors):
     grouped = {}
 
     for err in errors:
-        # Tworzymy klucz na podstawie treści błędu (wycinamy timestamp dla lepszego grupowania)
-        # Zakładamy, że treść błędu jest po drugim znaku '|'
+        
         parts = err["message"].split("|")
         msg_key = parts[2].strip() if len(parts) >= 3 else err["message"]
 
@@ -84,7 +84,7 @@ def group_and_deduplicate_errors(errors):
             grouped[msg_key] = {
                 "message": msg_key,
                 "count": 1,
-                "sample_traceback": err["traceback"][:10]  # Max 10 linii tracebacku dla oszczędności
+                "sample_traceback": err["traceback"][:10]  
             }
         else:
             grouped[msg_key]["count"] += 1
@@ -98,7 +98,6 @@ def build_ai_payload():
         return {}
 
     raw_errors = extract_errors_with_tracebacks(lines)
-    # KLUCZOWA ZMIANA: Grupujemy błędy przed wysyłką
     unique_errors = group_and_deduplicate_errors(raw_errors)
     
     error_count = len(raw_errors)
@@ -114,7 +113,7 @@ def build_ai_payload():
         "logs": {
             "log_levels": extract_log_levels(lines),
             "modules_activity": extract_modules(lines),
-            "unique_errors": unique_errors,  # AI dostaje czytelną listę
+            "unique_errors": unique_errors,
             "total_errors_detected": error_count
         },
         "validation": {
@@ -129,6 +128,9 @@ def build_ai_payload():
         )
     }
 
-    logger.info(f"AI Analyzer: payload prepared. Reduced {error_count} raw \
-        errors to {len(unique_errors)} unique types.")
+    # POPRAWIONY LOG (bez dziwnych spacji):
+    logger.info(
+        f"AI Analyzer: payload prepared. Reduced {error_count} raw errors to "
+        f"{len(unique_errors)} unique types."
+    )
     return payload
