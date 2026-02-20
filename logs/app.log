@@ -1,86 +1,49 @@
 2026-02-20 18:01:00,870 | INFO | AI Analyzer: payload prepared. Reduced 80 raw         errors to 7 unique types.
-2026-02-20 18:24:13,803 | INFO | Scraper: start scraping data
-2026-02-20 18:24:13,804 | INFO | Scraper: item 1 -> {'name': 'Eva', 'age': '20'}
-2026-02-20 18:24:13,804 | INFO | Scraper: item 2 -> {'name': 'Frank', 'age': '35'}
-2026-02-20 18:24:13,804 | INFO | Scraper: item 3 -> {'name': 'Grace', 'age': '-2'}
-2026-02-20 18:24:13,804 | INFO | Scraper: item 4 -> {'name': 'Alice', 'age': '25'}
-2026-02-20 18:24:13,804 | INFO | Scraper: item 5 -> {'name': 'Bob', 'age': 'thirty'}
-2026-02-20 18:24:13,805 | INFO | Scraper: item 6 -> {'name': 'Charlie', 'age': '30'}
-2026-02-20 18:24:13,805 | INFO | Scraper: item 7 -> {'name': 'Diana', 'age': '-5'}
-2026-02-20 18:24:13,805 | INFO | Scraper: item 8 -> {'name': 'Eve', 'age': 'twenty'}
-2026-02-20 18:24:13,805 | INFO | Scraper: item 9 -> {'name': 'Frank', 'age': '40'}
-2026-02-20 18:24:13,805 | INFO | Scraper: item 10 -> {'name': 'Grace', 'age': '0'}
-2026-02-20 18:24:13,805 | INFO | Scraper: finished, fetched 10 items
-2026-02-20 18:24:13,805 | INFO | Parser: start parsing data
-2026-02-20 18:24:13,805 | INFO | Parser: successfully parsed item 1 -> {'name': 'Eva', 'age': 20}
-2026-02-20 18:24:13,805 | INFO | Parser: successfully parsed item 2 -> {'name': 'Frank', 'age': 35}
-2026-02-20 18:24:13,805 | INFO | Parser: successfully parsed item 3 -> {'name': 'Grace', 'age': -2}
-2026-02-20 18:24:13,805 | INFO | Parser: successfully parsed item 4 -> {'name': 'Alice', 'age': 25}
-2026-02-20 18:24:13,805 | ERROR | Parser: error parsing item 5 -> {'name': 'Bob', 'age': 'thirty'}
+2026-02-20 19:57:31,647 | INFO | AI Client: Starting analysis (Mock mode: True)
+2026-02-20 19:57:33,151 | INFO | AI Client: Starting analysis (Mock mode: False)
+2026-02-20 19:57:33,155 | INFO | AI Client: Starting analysis (Mock mode: True)
+2026-02-20 19:57:51,947 | INFO | Scraper: start scraping data
+2026-02-20 19:57:51,948 | INFO | Scraper: item 1 -> {'name': 'Eva', 'age': '20'}
+2026-02-20 19:57:51,948 | INFO | Scraper: item 2 -> {'name': 'Frank', 'age': '35'}
+2026-02-20 19:57:51,948 | INFO | Scraper: item 3 -> {'name': 'Grace', 'age': '-2'}
+2026-02-20 19:57:51,948 | INFO | Scraper: item 4 -> {'name': 'Alice', 'age': '25'}
+2026-02-20 19:57:51,948 | INFO | Scraper: item 5 -> {'name': 'Bob', 'age': 'thirty'}
+2026-02-20 19:57:51,948 | INFO | Scraper: item 6 -> {'name': 'Charlie', 'age': '40'}
+2026-02-20 19:57:51,948 | INFO | Scraper: item 7 -> {'name': 'David', 'age': '0'}
+2026-02-20 19:57:51,948 | INFO | Scraper: item 8 -> {'name': 'Eve', 'age': 'twenty'}
+2026-02-20 19:57:51,949 | INFO | Scraper: item 9 -> {'name': 'Frank', 'age': '35'}
+2026-02-20 19:57:51,949 | INFO | Scraper: item 10 -> {'name': 'Grace', 'age': '-22'}
+2026-02-20 19:57:51,949 | INFO | Scraper: finished, fetched 10 items
+2026-02-20 19:57:51,949 | INFO | Parser: start parsing data
+2026-02-20 19:57:51,949 | INFO | Parser: successfully parsed item 1 -> {'name': 'Eva', 'age': 20}
+2026-02-20 19:57:51,949 | INFO | Parser: successfully parsed item 2 -> {'name': 'Frank', 'age': 35}
+2026-02-20 19:57:51,949 | INFO | Parser: successfully parsed item 3 -> {'name': 'Grace', 'age': -2}
+2026-02-20 19:57:51,949 | INFO | Parser: successfully parsed item 4 -> {'name': 'Alice', 'age': 25}
+2026-02-20 19:57:51,949 | ERROR | Parser: error parsing item 5 -> {'name': 'Bob', 'age': 'thirty'}
 Traceback (most recent call last):
   File "C:\Users\zgnil\Desktop\Projekt4\app\parser.py", line 12, in parse_data
     "age": int(item["age"])  # może rzucić ValueError
            ~~~^^^^^^^^^^^^^
 ValueError: invalid literal for int() with base 10: 'thirty'
-2026-02-20 18:24:13,808 | INFO | Parser: successfully parsed item 6 -> {'name': 'Charlie', 'age': 30}
-2026-02-20 18:24:13,809 | INFO | Parser: successfully parsed item 7 -> {'name': 'Diana', 'age': -5}
-2026-02-20 18:24:13,809 | ERROR | Parser: error parsing item 8 -> {'name': 'Eve', 'age': 'twenty'}
+2026-02-20 19:57:51,952 | INFO | Parser: successfully parsed item 6 -> {'name': 'Charlie', 'age': 40}
+2026-02-20 19:57:51,952 | INFO | Parser: successfully parsed item 7 -> {'name': 'David', 'age': 0}
+2026-02-20 19:57:51,953 | ERROR | Parser: error parsing item 8 -> {'name': 'Eve', 'age': 'twenty'}
 Traceback (most recent call last):
   File "C:\Users\zgnil\Desktop\Projekt4\app\parser.py", line 12, in parse_data
     "age": int(item["age"])  # może rzucić ValueError
            ~~~^^^^^^^^^^^^^
 ValueError: invalid literal for int() with base 10: 'twenty'
-2026-02-20 18:24:13,810 | INFO | Parser: successfully parsed item 9 -> {'name': 'Frank', 'age': 40}
-2026-02-20 18:24:13,810 | INFO | Parser: successfully parsed item 10 -> {'name': 'Grace', 'age': 0}
-2026-02-20 18:24:13,810 | INFO | Parser: finished, parsed 8 items
-2026-02-20 18:24:13,810 | INFO | Validator: start validation
-2026-02-20 18:24:13,810 | INFO | Validator: item 1 valid -> {'name': 'Eva', 'age': 20}
-2026-02-20 18:24:13,810 | INFO | Validator: item 2 valid -> {'name': 'Frank', 'age': 35}
-2026-02-20 18:24:13,810 | ERROR | Validator: invalid age for item 3 -> {'name': 'Grace', 'age': -2}
-2026-02-20 18:24:13,810 | INFO | Validator: item 4 valid -> {'name': 'Alice', 'age': 25}
-2026-02-20 18:24:13,811 | INFO | Validator: item 5 valid -> {'name': 'Charlie', 'age': 30}
-2026-02-20 18:24:13,811 | ERROR | Validator: invalid age for item 6 -> {'name': 'Diana', 'age': -5}
-2026-02-20 18:24:13,811 | INFO | Validator: item 7 valid -> {'name': 'Frank', 'age': 40}
-2026-02-20 18:24:13,811 | ERROR | Validator: invalid age for item 8 -> {'name': 'Grace', 'age': 0}
-2026-02-20 18:24:13,811 | INFO | Validator: finished, validated 5 items
-2026-02-20 18:24:13,845 | INFO | AI Analyzer: payload prepared. Reduced 5 raw errors to 5 unique types.
-2026-02-20 18:25:43,358 | INFO | AI Analyzer: payload prepared. Reduced 5 raw errors to 5 unique types.
-2026-02-20 18:26:44,203 | INFO | AI Analyzer: payload prepared. Reduced 5 raw errors to 5 unique types.
-2026-02-20 18:26:56,730 | INFO | Scraper: start scraping data
-2026-02-20 18:26:56,730 | INFO | Scraper: item 1 -> {'name': 'Eva', 'age': '20'}
-2026-02-20 18:26:56,731 | INFO | Scraper: item 2 -> {'name': 'Frank', 'age': '35'}
-2026-02-20 18:26:56,731 | INFO | Scraper: item 3 -> {'name': 'Grace', 'age': '-2'}
-2026-02-20 18:26:56,731 | INFO | Scraper: item 4 -> {'name': 'Alice', 'age': '25'}
-2026-02-20 18:26:56,731 | INFO | Scraper: item 5 -> {'name': 'Bob', 'age': 'thirty'}
-2026-02-20 18:26:56,731 | INFO | Scraper: finished, fetched 5 items
-2026-02-20 18:26:56,731 | INFO | Parser: start parsing data
-2026-02-20 18:26:56,731 | INFO | Parser: successfully parsed item 1 -> {'name': 'Eva', 'age': 20}
-2026-02-20 18:26:56,731 | INFO | Parser: successfully parsed item 2 -> {'name': 'Frank', 'age': 35}
-2026-02-20 18:26:56,731 | INFO | Parser: successfully parsed item 3 -> {'name': 'Grace', 'age': -2}
-2026-02-20 18:26:56,731 | INFO | Parser: successfully parsed item 4 -> {'name': 'Alice', 'age': 25}
-2026-02-20 18:26:56,732 | ERROR | Parser: error parsing item 5 -> {'name': 'Bob', 'age': 'thirty'}
-Traceback (most recent call last):
-  File "C:\Users\zgnil\Desktop\Projekt4\app\parser.py", line 12, in parse_data
-    "age": int(item["age"])  # może rzucić ValueError
-           ~~~^^^^^^^^^^^^^
-ValueError: invalid literal for int() with base 10: 'thirty'
-2026-02-20 18:26:56,735 | INFO | Parser: finished, parsed 4 items
-2026-02-20 18:26:56,735 | INFO | Validator: start validation
-2026-02-20 18:26:56,735 | INFO | Validator: item 1 valid -> {'name': 'Eva', 'age': 20}
-2026-02-20 18:26:56,735 | INFO | Validator: item 2 valid -> {'name': 'Frank', 'age': 35}
-2026-02-20 18:26:56,735 | ERROR | Validator: invalid age for item 3 -> {'name': 'Grace', 'age': -2}
-2026-02-20 18:26:56,735 | INFO | Validator: item 4 valid -> {'name': 'Alice', 'age': 25}
-2026-02-20 18:26:56,735 | INFO | Validator: finished, validated 3 items
-2026-02-20 18:26:56,759 | INFO | AI Analyzer: payload prepared. Reduced 7 raw errors to 5 unique types.
-2026-02-20 18:31:52,365 | INFO | AI Analyzer: payload prepared. Reduced 7 raw errors to 5 unique types.
-2026-02-20 18:31:52,366 | INFO | AI Client: Starting analysis (Mock mode: True)
-2026-02-20 19:03:29,097 | INFO | AI Client: Starting analysis (Mock mode: True)
-2026-02-20 19:03:30,602 | INFO | AI Client: Starting analysis (Mock mode: False)
-2026-02-20 19:08:25,343 | INFO | AI Client: Starting analysis (Mock mode: True)
-2026-02-20 19:08:26,847 | INFO | AI Client: Starting analysis (Mock mode: False)
-2026-02-20 19:08:26,852 | INFO | AI Client: Starting analysis (Mock mode: True)
-2026-02-20 19:08:40,825 | INFO | AI Client: Starting analysis (Mock mode: True)
-2026-02-20 19:08:42,331 | INFO | AI Client: Starting analysis (Mock mode: False)
-2026-02-20 19:08:42,336 | INFO | AI Client: Starting analysis (Mock mode: True)
-2026-02-20 19:13:51,660 | INFO | AI Analyzer: payload prepared. Reduced 7 raw errors to 5 unique types.
-2026-02-20 19:13:51,661 | INFO | AI Client: Starting analysis (Mock mode: True)
+2026-02-20 19:57:51,953 | INFO | Parser: successfully parsed item 9 -> {'name': 'Frank', 'age': 35}
+2026-02-20 19:57:51,954 | INFO | Parser: successfully parsed item 10 -> {'name': 'Grace', 'age': -22}
+2026-02-20 19:57:51,954 | INFO | Parser: finished, parsed 8 items
+2026-02-20 19:57:51,954 | INFO | Validator: start validation
+2026-02-20 19:57:51,954 | INFO | Validator: item 1 valid -> {'name': 'Eva', 'age': 20}
+2026-02-20 19:57:51,954 | INFO | Validator: item 2 valid -> {'name': 'Frank', 'age': 35}
+2026-02-20 19:57:51,954 | ERROR | Validator: invalid age for item 3 -> {'name': 'Grace', 'age': -2}
+2026-02-20 19:57:51,954 | INFO | Validator: item 4 valid -> {'name': 'Alice', 'age': 25}
+2026-02-20 19:57:51,954 | INFO | Validator: item 5 valid -> {'name': 'Charlie', 'age': 40}
+2026-02-20 19:57:51,954 | ERROR | Validator: invalid age for item 6 -> {'name': 'David', 'age': 0}
+2026-02-20 19:57:51,954 | INFO | Validator: item 7 valid -> {'name': 'Frank', 'age': 35}
+2026-02-20 19:57:51,954 | ERROR | Validator: invalid age for item 8 -> {'name': 'Grace', 'age': -22}
+2026-02-20 19:57:51,954 | INFO | Validator: finished, validated 5 items
+2026-02-20 19:57:51,977 | INFO | AI Analyzer: payload prepared. Reduced 5 raw errors to 5 unique types.

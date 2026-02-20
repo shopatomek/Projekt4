@@ -8,12 +8,17 @@ def scrape_demo_data():
     """
     data = [
         {"name": "Eva", "age": "20"},
-        {"name": "Frank", "age": "35"}, 
-        {"name": "Grace", "age": "-2"},         # błędne w walidatorze
+        {"name": "Frank", "age": "35"},
+        {"name": "Grace", "age": "-2"},  # błędne w walidatorze
         {"name": "Alice", "age": "25"},
-        {"name": "Bob", "age": "thirty"},       # błędne
+        {"name": "Bob", "age": "thirty"},
+        {"name": "Charlie", "age": "40"},
+        {"name": "David", "age": "0"},
+        {"name": "Eve", "age": "twenty"},
+        {"name": "Frank", "age": "35"},
+        {"name": "Grace", "age": "-22"},  # błędne w walidatorze
     ]
-      
+
     logger.info("Scraper: start scraping data")
     for idx, item in enumerate(data, start=1):
         logger.info(f"Scraper: item {idx} -> {item}")
