@@ -1,0 +1,41 @@
+### SYSTEM CONTEXT
+==================
+Status: WARNING
+Total log lines analyzed: 40
+Total errors detected: 3
+Session status: fresh
+Generated at: 2026-02-23T19:08:27.190352
+
+### MODULE ACTIVITY
+==================
+Scraper: 7 events
+Parser: 7 events
+Validator: 5 events
+
+### UNIQUE ERROR ANALYSIS
+=========================
+1) ERROR: Parser: error parsing item 3 -> {'name': 'Mia', 'age': 'twenty-five'}
+   OCCURRENCES: 1
+   SAMPLE TRACEBACK:
+      Traceback (most recent call last):
+      File "C:\Users\zgnil\Desktop\Projekt4\app\parser.py", line 12, in parse_data
+      "age": int(item["age"])  # może rzucić ValueError
+      ~~~^^^^^^^^^^^^^
+      ValueError: invalid literal for int() with base 10: 'twenty-five'
+------------------------------
+2) ERROR: Parser: error parsing item 4 -> {'name': 'Noah', 'age': 'sixty'}
+   OCCURRENCES: 1
+   SAMPLE TRACEBACK:
+      Traceback (most recent call last):
+      File "C:\Users\zgnil\Desktop\Projekt4\app\parser.py", line 12, in parse_data
+      "age": int(item["age"])  # może rzucić ValueError
+      ~~~^^^^^^^^^^^^^
+      ValueError: invalid literal for int() with base 10: 'sixty'
+------------------------------
+3) ERROR: Validator: invalid age for item 2 -> {'name': 'Liam', 'age': -30}
+   OCCURRENCES: 1
+------------------------------
+
+### INSTRUCTIONS
+================
+Przeanalizuj NOWE błędy z bieżącej sesji i zaproponuj rozwiązanie.

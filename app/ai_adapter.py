@@ -1,20 +1,24 @@
 def build_prompt(payload: dict) -> str:
     """
     Główna funkcja adaptera.
-    Przyjmuje ulepszony kontrakt AI (payload z unikalnymi błędami)
-    i zamienia go na czytelny prompt dla modelu językowego.
+    Zwraca sformatowany prompt dla AI lub pusty string, jeśli brak błędów.
     """
-
     if not payload:
-        return "No data available for analysis."
+        return ""
 
-    # Używamy .get(), aby uniknąć KeyError, jeśli któraś sekcja by nie istniała
-    core = payload.get("core", {})
     logs = payload.get("logs", {})
+    unique_errors = logs.get("unique_errors", [])
+
+    # --- KLUCZOWA ZMIANA: Early Return ---
+    # Jeśli lista unikalnych błędów jest pusta, przerywamy budowanie promptu.
+    # W architekturze opartej na plikach (Ścieżka 3), n8n nie otrzyma danych do analizy.
+    if not unique_errors:
+        return ""
+
+    # Jeśli doszliśmy tutaj, oznacza to, że MAMY błędy do analizy
+    core = payload.get("core", {})
     validation = payload.get("validation", {})
     instructions = payload.get("instructions", "Analyze the logs and provide insights.")
-
-    unique_errors = logs.get("unique_errors", [])
 
     lines = []
 
@@ -22,9 +26,7 @@ def build_prompt(payload: dict) -> str:
     lines.append("### SYSTEM CONTEXT")
     lines.append("=" * 18)
     lines.append(f"Status: {validation.get('status', 'UNKNOWN').upper()}")
-    # ZMIANA: używamy nowej nazwy klucza z ai_analyzer
     lines.append(f"Total log lines analyzed: {core.get('total_log_lines_in_session', 0)}")
-    # ZMIANA: używamy 'new_errors_found' zamiast 'total_errors_detected'
     lines.append(f"Total errors detected: {logs.get('new_errors_found', 0)}")
     lines.append(f"Session status: {core.get('session_status', 'N/A')}")
     lines.append(f"Generated at: {core.get('generated_at', 'N/A')}")
@@ -44,24 +46,23 @@ def build_prompt(payload: dict) -> str:
     lines.append("### UNIQUE ERROR ANALYSIS")
     lines.append("=" * 25)
 
-    if not unique_errors:
-        lines.append("No critical errors found in the current session.")
-    else:
-        for idx, err_data in enumerate(unique_errors, start=1):
-            lines.append(f"{idx}) ERROR: {err_data.get('message', 'No message')}")
-            lines.append(f"   OCCURRENCES: {err_data.get('count', 1)}")
+    # Pętla generuje szczegóły tylko dla unikalnych typów błędów
+    for idx, err_data in enumerate(unique_errors, start=1):
+        lines.append(f"{idx}) ERROR: {err_data.get('message', 'No message')}")
+        lines.append(f"   OCCURRENCES: {err_data.get('count', 1)}")
 
-            traceback = err_data.get("sample_traceback", [])
-            if traceback:
-                lines.append("   SAMPLE TRACEBACK:")
-                for tb in traceback:
-                    lines.append(f"      {tb}")
+        traceback = err_data.get("sample_traceback", [])
+        if traceback:
+            lines.append("   SAMPLE TRACEBACK:")
+            for tb in traceback:
+                lines.append(f"      {tb}")
 
-            lines.append("-" * 30)
+        lines.append("-" * 30)
 
     lines.append("")
 
     # --- Instrukcja dla AI ---
+    # Instrukcja jest dodawana tylko wtedy, gdy faktycznie są błędy
     lines.append("### INSTRUCTIONS")
     lines.append("=" * 16)
     lines.append(instructions)

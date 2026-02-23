@@ -1,3 +1,4 @@
+import os
 from app.ai_analyzer import build_ai_payload
 from app.ai_adapter import build_prompt
 
@@ -6,37 +7,41 @@ def test_build_prompt_output():
     # 1. Pobieramy dane (Payload)
     payload = build_ai_payload()
 
-    # 2. Generujemy prompt na podstawie danych
+    # 2. Generujemy prompt
     prompt = build_prompt(payload)
 
-    # 3. Wyświetlamy wynik w konsoli
     print("\n" + "🤖" * 15)
-    print("DEBUG: GENERATED PROMPT FOR AI")
+    print("DEBUG: AI ADAPTER TEST")
     print("🤖" * 15 + "\n")
 
-    print(prompt)
+    # 3. Logika weryfikacji zależna od danych
+    if not prompt:
+        # Scenariusz A: BRAK BŁĘDÓW
+        print("✅ STATUS: System czysty. Adapter zwrócił pusty string (prawidłowo).")
 
-    print("\n" + "=" * 30)
-    print("END OF PROMPT")
-    print("=" * 30 + "\n")
+        # Sprzątamy stary plik, żeby n8n nie wysłało go przez pomyłkę
+        if os.path.exists("shared_data/to_analyze.txt"):
+            os.remove("shared_data/to_analyze.txt")
+            print("🧹 Usunięto stary plik z folderu shared_data.")
+    else:
+        # Scenariusz B: SĄ BŁĘDY
+        print("🚨 STATUS: Wykryto błędy. Generuję prompt...")
+        print("-" * 30)
+        print(prompt)
+        print("-" * 30)
 
-    # 4. Weryfikacja (Dostosowana do nowej logiki)
-    assert isinstance(prompt, str), "Prompt powinien być ciągiem znaków (str)"
-    assert "SYSTEM CONTEXT" in prompt, "Brak sekcji SYSTEM CONTEXT"
-    assert (
-        "UNIQUE ERROR ANALYSIS" in prompt
-    ), "Brak sekcji UNIQUE ERROR \
-        ANALYSIS"
-    assert "INSTRUCTIONS" in prompt, "Brak sekcji INSTRUCTIONS"
+        # Weryfikacja struktury (Tylko gdy prompt NIE jest pusty)
+        assert "SYSTEM CONTEXT" in prompt
+        assert "UNIQUE ERROR ANALYSIS" in prompt
+        assert "INSTRUCTIONS" in prompt
 
-    # Sprawdzamy czy widać grupowanie jeśli są błędy
-    if payload["validation"]["error_count"] > 0:
-        assert (
-            "OCCURRENCES:" in prompt
-        ), "Brak informacji o liczbie wystąpień \
-            błędów"
+        # Zapisujemy plik dla n8n (To co zrobi Docker)
+        os.makedirs("shared_data", exist_ok=True)
+        with open("shared_data/to_analyze.txt", "w", encoding="utf-8") as f:
+            f.write(prompt)
+        print("\n📂 Zapisano prompt w: shared_data/to_analyze.txt")
 
-    print("✅ Sukces: Prompt wygenerowany poprawnie zgodnie z nowym formatem.")
+    print("\n✅ Test zakończony pomyślnie.")
 
 
 if __name__ == "__main__":
