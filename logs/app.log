@@ -97,3 +97,104 @@ ValueError: invalid literal for int() with base 10: 'thirty'
 2026-02-23 13:32:49,047 | ERROR | Validator: invalid age for item 11 -> {'name': 'Xander', 'age': -40}
 2026-02-23 13:32:49,047 | INFO | Validator: finished, validated 5 items
 2026-02-23 13:32:49,082 | INFO | AI Analyzer: Session payload ready. New errors: 14
+2026-02-23 13:38:06,945 | INFO | ==================================================
+2026-02-23 13:38:06,945 | INFO | NEW SESSION STARTED | Tracking fresh data
+2026-02-23 13:38:06,945 | INFO | ==================================================
+2026-02-23 13:38:06,945 | INFO | Application: Pipeline execution started
+2026-02-23 13:38:06,945 | INFO | Scraper: start scraping data
+2026-02-23 13:38:06,946 | INFO | Scraper: item 1 -> {'name': 'Eva', 'age': '20'}
+2026-02-23 13:38:06,946 | INFO | Scraper: item 2 -> {'name': 'Frank', 'age': '35'}
+2026-02-23 13:38:06,946 | INFO | Scraper: item 3 -> {'name': 'Grace', 'age': '-2'}
+2026-02-23 13:38:06,946 | INFO | Scraper: item 4 -> {'name': 'Alice', 'age': '25'}
+2026-02-23 13:38:06,946 | INFO | Scraper: item 5 -> {'name': 'Bob', 'age': 'thirty'}
+2026-02-23 13:38:06,946 | INFO | Scraper: item 6 -> {'name': 'Charlie', 'age': '40'}
+2026-02-23 13:38:06,946 | INFO | Scraper: item 7 -> {'name': 'David', 'age': '0'}
+2026-02-23 13:38:06,946 | INFO | Scraper: item 8 -> {'name': 'Eve', 'age': 'twenty'}
+2026-02-23 13:38:06,946 | INFO | Scraper: item 9 -> {'name': 'Frank', 'age': '35'}
+2026-02-23 13:38:06,946 | INFO | Scraper: item 10 -> {'name': 'Grace', 'age': '-22'}
+2026-02-23 13:38:06,946 | INFO | Scraper: item 11 -> {'name': 'Bobby', 'age': '-32'}
+2026-02-23 13:38:06,946 | INFO | Scraper: item 12 -> {'name': 'Cindy', 'age': 'seventy'}
+2026-02-23 13:38:06,947 | INFO | Scraper: item 13 -> {'name': 'Hank', 'age': 'zero'}
+2026-02-23 13:38:06,947 | INFO | Scraper: item 14 -> {'name': 'Eve', 'age': 'twenty'}
+2026-02-23 13:38:06,947 | INFO | Scraper: item 15 -> {'name': 'David', 'age': 'hundred'}
+2026-02-23 13:38:06,947 | INFO | Scraper: item 16 -> {'name': 'Zubu', 'age': '-2'}
+2026-02-23 13:38:06,947 | INFO | Scraper: item 17 -> {'name': 'Yara', 'age': 'thirty'}
+2026-02-23 13:38:06,947 | INFO | Scraper: item 18 -> {'name': 'Xander', 'age': '-40'}
+2026-02-23 13:38:06,947 | INFO | Scraper: item 19 -> {'name': 'Yara', 'age': 'thirty'}
+2026-02-23 13:38:06,947 | INFO | Scraper: finished, fetched 19 items
+2026-02-23 13:38:06,947 | INFO | Parser: start parsing data
+2026-02-23 13:38:06,947 | INFO | Parser: successfully parsed item 1 -> {'name': 'Eva', 'age': 20}
+2026-02-23 13:38:06,947 | INFO | Parser: successfully parsed item 2 -> {'name': 'Frank', 'age': 35}
+2026-02-23 13:38:06,947 | INFO | Parser: successfully parsed item 3 -> {'name': 'Grace', 'age': -2}
+2026-02-23 13:38:06,947 | INFO | Parser: successfully parsed item 4 -> {'name': 'Alice', 'age': 25}
+2026-02-23 13:38:06,948 | ERROR | Parser: error parsing item 5 -> {'name': 'Bob', 'age': 'thirty'}
+Traceback (most recent call last):
+  File "C:\Users\zgnil\Desktop\Projekt4\app\parser.py", line 12, in parse_data
+    "age": int(item["age"])  # może rzucić ValueError
+           ~~~^^^^^^^^^^^^^
+ValueError: invalid literal for int() with base 10: 'thirty'
+2026-02-23 13:38:06,951 | INFO | Parser: successfully parsed item 6 -> {'name': 'Charlie', 'age': 40}
+2026-02-23 13:38:06,951 | INFO | Parser: successfully parsed item 7 -> {'name': 'David', 'age': 0}
+2026-02-23 13:38:06,951 | ERROR | Parser: error parsing item 8 -> {'name': 'Eve', 'age': 'twenty'}
+Traceback (most recent call last):
+  File "C:\Users\zgnil\Desktop\Projekt4\app\parser.py", line 12, in parse_data
+    "age": int(item["age"])  # może rzucić ValueError
+           ~~~^^^^^^^^^^^^^
+ValueError: invalid literal for int() with base 10: 'twenty'
+2026-02-23 13:38:06,952 | INFO | Parser: successfully parsed item 9 -> {'name': 'Frank', 'age': 35}
+2026-02-23 13:38:06,952 | INFO | Parser: successfully parsed item 10 -> {'name': 'Grace', 'age': -22}
+2026-02-23 13:38:06,952 | INFO | Parser: successfully parsed item 11 -> {'name': 'Bobby', 'age': -32}
+2026-02-23 13:38:06,952 | ERROR | Parser: error parsing item 12 -> {'name': 'Cindy', 'age': 'seventy'}
+Traceback (most recent call last):
+  File "C:\Users\zgnil\Desktop\Projekt4\app\parser.py", line 12, in parse_data
+    "age": int(item["age"])  # może rzucić ValueError
+           ~~~^^^^^^^^^^^^^
+ValueError: invalid literal for int() with base 10: 'seventy'
+2026-02-23 13:38:06,953 | ERROR | Parser: error parsing item 13 -> {'name': 'Hank', 'age': 'zero'}
+Traceback (most recent call last):
+  File "C:\Users\zgnil\Desktop\Projekt4\app\parser.py", line 12, in parse_data
+    "age": int(item["age"])  # może rzucić ValueError
+           ~~~^^^^^^^^^^^^^
+ValueError: invalid literal for int() with base 10: 'zero'
+2026-02-23 13:38:06,953 | ERROR | Parser: error parsing item 14 -> {'name': 'Eve', 'age': 'twenty'}
+Traceback (most recent call last):
+  File "C:\Users\zgnil\Desktop\Projekt4\app\parser.py", line 12, in parse_data
+    "age": int(item["age"])  # może rzucić ValueError
+           ~~~^^^^^^^^^^^^^
+ValueError: invalid literal for int() with base 10: 'twenty'
+2026-02-23 13:38:06,954 | ERROR | Parser: error parsing item 15 -> {'name': 'David', 'age': 'hundred'}
+Traceback (most recent call last):
+  File "C:\Users\zgnil\Desktop\Projekt4\app\parser.py", line 12, in parse_data
+    "age": int(item["age"])  # może rzucić ValueError
+           ~~~^^^^^^^^^^^^^
+ValueError: invalid literal for int() with base 10: 'hundred'
+2026-02-23 13:38:06,955 | INFO | Parser: successfully parsed item 16 -> {'name': 'Zubu', 'age': -2}
+2026-02-23 13:38:06,955 | ERROR | Parser: error parsing item 17 -> {'name': 'Yara', 'age': 'thirty'}
+Traceback (most recent call last):
+  File "C:\Users\zgnil\Desktop\Projekt4\app\parser.py", line 12, in parse_data
+    "age": int(item["age"])  # może rzucić ValueError
+           ~~~^^^^^^^^^^^^^
+ValueError: invalid literal for int() with base 10: 'thirty'
+2026-02-23 13:38:06,956 | INFO | Parser: successfully parsed item 18 -> {'name': 'Xander', 'age': -40}
+2026-02-23 13:38:06,956 | ERROR | Parser: error parsing item 19 -> {'name': 'Yara', 'age': 'thirty'}
+Traceback (most recent call last):
+  File "C:\Users\zgnil\Desktop\Projekt4\app\parser.py", line 12, in parse_data
+    "age": int(item["age"])  # może rzucić ValueError
+           ~~~^^^^^^^^^^^^^
+ValueError: invalid literal for int() with base 10: 'thirty'
+2026-02-23 13:38:06,957 | INFO | Parser: finished, parsed 11 items
+2026-02-23 13:38:06,957 | INFO | Validator: start validation
+2026-02-23 13:38:06,957 | INFO | Validator: item 1 valid -> {'name': 'Eva', 'age': 20}
+2026-02-23 13:38:06,957 | INFO | Validator: item 2 valid -> {'name': 'Frank', 'age': 35}
+2026-02-23 13:38:06,957 | ERROR | Validator: invalid age for item 3 -> {'name': 'Grace', 'age': -2}
+2026-02-23 13:38:06,957 | INFO | Validator: item 4 valid -> {'name': 'Alice', 'age': 25}
+2026-02-23 13:38:06,957 | INFO | Validator: item 5 valid -> {'name': 'Charlie', 'age': 40}
+2026-02-23 13:38:06,957 | ERROR | Validator: invalid age for item 6 -> {'name': 'David', 'age': 0}
+2026-02-23 13:38:06,957 | INFO | Validator: item 7 valid -> {'name': 'Frank', 'age': 35}
+2026-02-23 13:38:06,958 | ERROR | Validator: invalid age for item 8 -> {'name': 'Grace', 'age': -22}
+2026-02-23 13:38:06,958 | ERROR | Validator: invalid age for item 9 -> {'name': 'Bobby', 'age': -32}
+2026-02-23 13:38:06,958 | ERROR | Validator: invalid age for item 10 -> {'name': 'Zubu', 'age': -2}
+2026-02-23 13:38:06,958 | ERROR | Validator: invalid age for item 11 -> {'name': 'Xander', 'age': -40}
+2026-02-23 13:38:06,958 | INFO | Validator: finished, validated 5 items
+2026-02-23 13:38:06,958 | INFO | Final validated data (5 items): [{'name': 'Eva', 'age': 20}, {'name': 'Frank', 'age': 35}, {'name': 'Alice', 'age': 25}, {'name': 'Charlie', 'age': 40}, {'name': 'Frank', 'age': 35}]
+2026-02-23 13:38:06,987 | INFO | AI Analyzer: Session payload ready. New errors: 14
