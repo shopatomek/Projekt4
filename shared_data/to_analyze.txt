@@ -1,41 +1,56 @@
 ### SYSTEM CONTEXT
 ==================
-Status: WARNING
-Total log lines analyzed: 40
-Total errors detected: 3
+Status: ERROR
+Total log lines analyzed: 16
+Total errors detected: 12
 Session status: fresh
-Generated at: 2026-02-23T19:08:27.190352
+Generated at: 2026-02-23T23:57:52.065766
 
 ### MODULE ACTIVITY
 ==================
-Scraper: 7 events
-Parser: 7 events
-Validator: 5 events
+Scraper: 1 events
+Parser: 6 events
+Validator: 8 events
 
 ### UNIQUE ERROR ANALYSIS
 =========================
-1) ERROR: Parser: error parsing item 3 -> {'name': 'Mia', 'age': 'twenty-five'}
+1) ERROR: Parser: error parsing item 5 -> {'name': 'Ava', 'age': 'abc'}
    OCCURRENCES: 1
-   SAMPLE TRACEBACK:
-      Traceback (most recent call last):
-      File "C:\Users\zgnil\Desktop\Projekt4\app\parser.py", line 12, in parse_data
-      "age": int(item["age"])  # może rzucić ValueError
-      ~~~^^^^^^^^^^^^^
-      ValueError: invalid literal for int() with base 10: 'twenty-five'
 ------------------------------
-2) ERROR: Parser: error parsing item 4 -> {'name': 'Noah', 'age': 'sixty'}
+2) ERROR: Parser: error parsing item 7 -> {'name': 'Sophia', 'age': 'acafafas'}
    OCCURRENCES: 1
-   SAMPLE TRACEBACK:
-      Traceback (most recent call last):
-      File "C:\Users\zgnil\Desktop\Projekt4\app\parser.py", line 12, in parse_data
-      "age": int(item["age"])  # może rzucić ValueError
-      ~~~^^^^^^^^^^^^^
-      ValueError: invalid literal for int() with base 10: 'sixty'
 ------------------------------
-3) ERROR: Validator: invalid age for item 2 -> {'name': 'Liam', 'age': -30}
+3) ERROR: Parser: error parsing item 9 -> {'name': 'Isabella', 'age': 'dadafaas'}
+   OCCURRENCES: 1
+------------------------------
+4) ERROR: Parser: error parsing item 12 -> {'name': 'Luna', 'age': 'dafsasxx'}
+   OCCURRENCES: 1
+------------------------------
+5) ERROR: Parser: error parsing item 14 -> {'name': 'Amelia', 'age': 'das'}
+   OCCURRENCES: 1
+------------------------------
+6) ERROR: Validator: invalid age for item 3 -> {'name': 'Liam', 'age': -30}
+   OCCURRENCES: 1
+------------------------------
+7) ERROR: Validator: invalid age for item 5 -> {'name': 'Ethan', 'age': -35}
+   OCCURRENCES: 1
+------------------------------
+8) ERROR: Validator: invalid age for item 6 -> {'name': 'Mason', 'age': -45}
+   OCCURRENCES: 1
+------------------------------
+9) ERROR: Validator: invalid age for item 7 -> {'name': 'Logan', 'age': -50}
+   OCCURRENCES: 1
+------------------------------
+10) ERROR: Validator: invalid age for item 8 -> {'name': 'Mia', 'age': -30}
+   OCCURRENCES: 1
+------------------------------
+11) ERROR: Validator: invalid age for item 9 -> {'name': 'Lucas', 'age': -40}
+   OCCURRENCES: 1
+------------------------------
+12) ERROR: Validator: invalid age for item 10 -> {'name': 'Oliver', 'age': -25}
    OCCURRENCES: 1
 ------------------------------
 
 ### INSTRUCTIONS
 ================
-Przeanalizuj NOWE błędy z bieżącej sesji i zaproponuj rozwiązanie.
+Przeanalizuj NOWE błędy i zaproponuj rozwiązanie.
