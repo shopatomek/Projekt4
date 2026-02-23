@@ -22,6 +22,10 @@ def scrape_demo_data():
         {"name": "Hank", "age": "zero"},
         {"name": "Eve", "age": "twenty"},
         {"name": "David", "age": "hundred"},
+        {"name": "Zubu", "age": "-2"},
+        {"name": "Yara", "age": "thirty"},
+        {"name": "Xander", "age": "-40"},
+        {"name": "Yara", "age": "thirty"},
     ]
 
     logger.info("Scraper: start scraping data")

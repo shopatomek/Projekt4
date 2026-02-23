@@ -47,6 +47,29 @@ def extract_modules(log_lines):
 
 
 def extract_errors_with_tracebacks(log_lines):
+    errors = []
+    current_error = None
+
+    for line in log_lines:
+        is_new_log_entry = re.match(TIMESTAMP_PATTERN, line)
+
+        if is_new_log_entry:
+            if "| ERROR |" in line:
+                current_error = {"message": line.strip(), "traceback": []}
+                errors.append(current_error)
+            else:
+                # Jeśli napotkamy INFO/WARNING, "odcinamy" bieżący błąd,
+                # by tracebacki nie wyciekały do innych wpisów.
+                current_error = None
+        else:
+            # Tutaj linter sypał błędem.
+            # Sprawdzamy czy current_error nie jest None i czy to słownik.
+            if current_error is not None:
+                clean_line = line.strip()
+                if clean_line:
+                    current_error["traceback"].append(clean_line)
+
+    return errors
     """
     Wyciąga błędy, ale zatrzymuje się, gdy napotka nową linię logu (np. INFO).
     Eliminuje to 'szum' w tracebackach.
@@ -98,30 +121,31 @@ def group_and_deduplicate_errors(errors):
 
 
 def build_ai_payload():
+    # Pobieramy tylko linie z OSTATNIEJ sesji (dzięki naszej nowej funkcji read_log_file)
     lines = read_log_file()
     if not lines:
-        return {}
+        return {"validation": {"status": "ok", "error_count": 0}, "message": "No data found in the current session."}
 
+    # Te funkcje teraz dostają tylko świeże linie!
     raw_errors = extract_errors_with_tracebacks(lines)
     unique_errors = group_and_deduplicate_errors(raw_errors)
 
     error_count = len(raw_errors)
-    status = "ok"
-    if error_count > 0:
-        status = "error" if error_count > 5 else "warning"
+
+    # Logika statusu tylko dla TEJ sesji
+    if error_count == 0:
+        status = "ok"
+    elif error_count < 5:
+        status = "warning"
+    else:
+        status = "error"
 
     payload = {
-        "core": {"total_log_lines": len(lines), "generated_at": datetime.now().isoformat()},
-        "logs": {"log_levels": extract_log_levels(lines), "modules_activity": extract_modules(lines), "unique_errors": unique_errors, "total_errors_detected": error_count},
+        "core": {"total_log_lines_in_session": len(lines), "generated_at": datetime.now().isoformat(), "session_status": "fresh"},  # Informacja, że to nowości
+        "logs": {"log_levels": extract_log_levels(lines), "modules_activity": extract_modules(lines), "unique_errors": unique_errors, "new_errors_found": error_count},  # To są Twoje "nowe błędy"
         "validation": {"status": status, "error_count": error_count},
-        "instructions": (
-            "Przeanalizuj unikalne błędy w sekcji 'unique_errors'. "
-            "Zwróć uwagę na pole 'count' - im większe, "
-            "tym błąd jest pilniejszy. "
-            "Zaproponuj naprawę dla najczęściej występujących problemów."
-        ),
+        "instructions": "Przeanalizuj NOWE błędy z bieżącej sesji i zaproponuj rozwiązanie.",
     }
 
-    # POPRAWIONY LOG (bez dziwnych spacji):
-    logger.info(f"AI Analyzer: payload prepared. Reduced {error_count} raw errors to " f"{len(unique_errors)} unique types.")
+    logger.info(f"AI Analyzer: Session payload ready. New errors: {error_count}")
     return payload
