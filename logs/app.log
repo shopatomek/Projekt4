@@ -1788,3 +1788,67 @@ ValueError: invalid literal for int() with base 10: 'dadafaas'
 2026-02-24 19:26:29,970 | INFO | Validator: start validation
 2026-02-24 19:26:30,054 | INFO | AI Analyzer: Przygotowano payload. Nowe błędy: 10 (Health: 81.5%)
 2026-02-24 19:26:30,059 | INFO | 🚀 WYKRYTO NOWE BŁĘDY (10). Raport: /app/shared_data/to_analyze.txt
+2026-02-24 19:31:30,022 | INFO | ==================================================
+2026-02-24 19:31:30,025 | INFO | NEW SESSION STARTED | Automatic Monitoring Cycle
+2026-02-24 19:31:30,027 | INFO | ==================================================
+2026-02-24 19:31:30,029 | INFO | Scraper: start scraping data
+2026-02-24 19:31:30,053 | INFO | Parser: start parsing data
+2026-02-24 19:31:30,080 | INFO | Validator: start validation
+2026-02-24 19:31:30,157 | INFO | AI Analyzer: Przygotowano payload. Nowe błędy: 4 (Health: 93.5%)
+2026-02-24 19:31:30,163 | INFO | 🚀 WYKRYTO NOWE BŁĘDY (4). Raport: /app/shared_data/to_analyze.txt
+2026-02-24 19:36:30,129 | INFO | ==================================================
+2026-02-24 19:36:30,133 | INFO | NEW SESSION STARTED | Automatic Monitoring Cycle
+2026-02-24 19:36:30,135 | INFO | ==================================================
+2026-02-24 19:36:30,137 | INFO | Scraper: start scraping data
+2026-02-24 19:36:30,158 | INFO | Parser: start parsing data
+2026-02-24 19:36:30,191 | INFO | Validator: start validation
+2026-02-24 19:36:30,256 | INFO | AI Analyzer: Przygotowano payload. Nowe błędy: 9 (Health: 81.2%)
+2026-02-24 19:36:30,263 | INFO | 🚀 WYKRYTO NOWE BŁĘDY (9). Raport: /app/shared_data/to_analyze.txt
+2026-02-24 19:41:30,232 | INFO | ==================================================
+2026-02-24 19:41:30,236 | INFO | NEW SESSION STARTED | Automatic Monitoring Cycle
+2026-02-24 19:41:30,238 | INFO | ==================================================
+2026-02-24 19:41:30,240 | INFO | Scraper: start scraping data
+2026-02-24 19:41:30,265 | INFO | Parser: start parsing data
+2026-02-24 19:41:30,294 | INFO | Validator: start validation
+2026-02-24 19:41:30,378 | INFO | AI Analyzer: Przygotowano payload. Nowe błędy: 6 (Health: 88.5%)
+2026-02-24 19:41:30,385 | INFO | 🚀 WYKRYTO NOWE BŁĘDY (6). Raport: /app/shared_data/to_analyze.txt
+2026-02-24 19:46:30,357 | INFO | ==================================================
+2026-02-24 19:46:30,360 | INFO | NEW SESSION STARTED | Automatic Monitoring Cycle
+2026-02-24 19:46:30,362 | INFO | ==================================================
+2026-02-24 19:46:30,364 | INFO | Scraper: start scraping data
+2026-02-24 19:46:30,394 | INFO | Parser: start parsing data
+2026-02-24 19:46:30,429 | INFO | Validator: start validation
+2026-02-24 19:46:30,538 | INFO | AI Analyzer: Przygotowano payload. Nowe błędy: 10 (Health: 83.9%)
+2026-02-24 19:46:30,547 | INFO | 🚀 WYKRYTO NOWE BŁĘDY (10). Raport: /app/shared_data/to_analyze.txt
+2026-02-24 19:51:30,519 | INFO | ==================================================
+2026-02-24 19:51:30,522 | INFO | NEW SESSION STARTED | Automatic Monitoring Cycle
+2026-02-24 19:51:30,525 | INFO | ==================================================
+2026-02-24 19:51:30,528 | INFO | Scraper: start scraping data
+2026-02-24 19:51:30,544 | INFO | Parser: start parsing data
+2026-02-24 19:51:30,565 | INFO | Validator: start validation
+2026-02-24 19:51:30,643 | INFO | AI Analyzer: Przygotowano payload. Nowe błędy: 4 (Health: 90.7%)
+2026-02-24 19:51:30,650 | INFO | 🚀 WYKRYTO NOWE BŁĘDY (4). Raport: /app/shared_data/to_analyze.txt
+2026-02-24 19:56:30,623 | INFO | ==================================================
+2026-02-24 19:56:30,627 | INFO | NEW SESSION STARTED | Automatic Monitoring Cycle
+2026-02-24 19:56:30,629 | INFO | ==================================================
+2026-02-24 19:56:30,632 | INFO | Scraper: start scraping data
+2026-02-24 19:56:30,651 | INFO | Parser: start parsing data
+2026-02-24 19:56:30,678 | INFO | Validator: start validation
+2026-02-24 19:56:30,752 | INFO | AI Analyzer: Przygotowano payload. Nowe błędy: 6 (Health: 84.2%)
+2026-02-24 19:56:30,759 | INFO | 🚀 WYKRYTO NOWE BŁĘDY (6). Raport: /app/shared_data/to_analyze.txt
+2026-02-24 20:01:30,734 | INFO | ==================================================
+2026-02-24 20:01:30,738 | INFO | NEW SESSION STARTED | Automatic Monitoring Cycle
+2026-02-24 20:01:30,740 | INFO | ==================================================
+2026-02-24 20:01:30,743 | INFO | Scraper: start scraping data
+2026-02-24 20:01:30,757 | INFO | Parser: start parsing data
+2026-02-24 20:01:30,781 | INFO | Validator: start validation
+2026-02-24 20:01:30,876 | INFO | AI Analyzer: Przygotowano payload. Nowe błędy: 7 (Health: 82.9%)
+2026-02-24 20:01:30,885 | INFO | 🚀 WYKRYTO NOWE BŁĘDY (7). Raport: /app/shared_data/to_analyze.txt
+2026-02-24 20:06:30,860 | INFO | ==================================================
+2026-02-24 20:06:30,863 | INFO | NEW SESSION STARTED | Automatic Monitoring Cycle
+2026-02-24 20:06:30,865 | INFO | ==================================================
+2026-02-24 20:06:30,867 | INFO | Scraper: start scraping data
+2026-02-24 20:06:30,891 | INFO | Parser: start parsing data
+2026-02-24 20:06:30,915 | INFO | Validator: start validation
+2026-02-24 20:06:30,995 | INFO | AI Analyzer: Przygotowano payload. Nowe błędy: 5 (Health: 89.6%)
+2026-02-24 20:06:31,004 | INFO | 🚀 WYKRYTO NOWE BŁĘDY (5). Raport: /app/shared_data/to_analyze.txt
