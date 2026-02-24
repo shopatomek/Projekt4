@@ -1,34 +1,24 @@
 def build_prompt(payload: dict) -> str:
-    """
-    Główna funkcja adaptera.
-    Zwraca sformatowany prompt dla AI lub pusty string, jeśli brak błędów.
-    """
     if not payload:
         return ""
 
     logs = payload.get("logs", {})
     unique_errors = logs.get("unique_errors", [])
-
-    # --- KLUCZOWA ZMIANA: Early Return ---
-    # Jeśli lista unikalnych błędów jest pusta, przerywamy budowanie promptu.
-    # W architekturze opartej na plikach (Ścieżka 3), n8n nie otrzyma danych do analizy.
     if not unique_errors:
         return ""
 
-    # Jeśli doszliśmy tutaj, oznacza to, że MAMY błędy do analizy
     core = payload.get("core", {})
     validation = payload.get("validation", {})
-    instructions = payload.get("instructions", "Analyze the logs and provide insights.")
+    instructions = payload.get("instructions", "Analyze logs.")
 
     lines = []
-
-    # --- Kontekst systemowy ---
     lines.append("### SYSTEM CONTEXT")
     lines.append("=" * 18)
     lines.append(f"Status: {validation.get('status', 'UNKNOWN').upper()}")
-    lines.append(f"Total log lines analyzed: {core.get('total_log_lines_in_session', 0)}")
+    lines.append(f"System Health Score: {core.get('health_score', 'N/A')}")  # NOWOŚĆ
+    lines.append(f"Error Rate: {core.get('error_rate', 'N/A')}")  # NOWOŚĆ
+    lines.append(f"Total events analyzed: {core.get('total_log_lines_in_session', 0)}")
     lines.append(f"Total errors detected: {logs.get('new_errors_found', 0)}")
-    lines.append(f"Session status: {core.get('session_status', 'N/A')}")
     lines.append(f"Generated at: {core.get('generated_at', 'N/A')}")
     lines.append("")
 

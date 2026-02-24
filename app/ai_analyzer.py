@@ -117,6 +117,46 @@ def build_ai_payload():
     raw_errors = extract_errors_with_tracebacks(lines)
     unique_errors = group_and_deduplicate_errors(raw_errors)
 
+    # --- MECHANIZM DEDUPLIKACJI ---
+    error_fingerprint = "".join(sorted([str(e["message"]) for e in unique_errors]))
+    current_hash = hashlib.md5(error_fingerprint.encode()).hexdigest() if unique_errors else ""
+    last_hash = get_last_error_hash()
+
+    if current_hash == last_hash and unique_errors:
+        logger.info("AI Analyzer: Te same błędy co w poprzednim cyklu. Pomijam raport.")
+        return {}
+
+    save_error_hash(current_hash)
+
+    # --- NOWE STATYSTYKI ---
+    error_count = len(raw_errors)
+    total_count = len(lines)
+    # Wyliczamy procent błędów
+    error_rate = (error_count / total_count * 100) if total_count > 0 else 0
+    health_score = 100 - error_rate
+
+    payload = {
+        "core": {
+            "total_log_lines_in_session": total_count,
+            "generated_at": datetime.now().isoformat(),
+            "session_status": "fresh",
+            "health_score": f"{health_score:.1f}%",  # Dodajemy to!
+            "error_rate": f"{error_rate:.1f}%",  # I to!
+        },
+        "logs": {"log_levels": extract_log_levels(lines), "modules_activity": extract_modules(lines), "unique_errors": unique_errors, "new_errors_found": error_count},
+        "validation": {"status": "ok" if error_count == 0 else "warning" if error_count < 5 else "error", "error_count": error_count},
+        "instructions": "Przeanalizuj błędy, zwróć uwagę na Health Score i zaproponuj rozwiązanie.",
+    }
+
+    logger.info(f"AI Analyzer: Przygotowano payload. Nowe błędy: {error_count} (Health: {health_score:.1f}%)")
+    return payload
+    lines = read_log_file()
+    if not lines:
+        return {}
+
+    raw_errors = extract_errors_with_tracebacks(lines)
+    unique_errors = group_and_deduplicate_errors(raw_errors)
+
     # --- MECHANIZM DEDUPLIKACJI (Sprawdzamy czy błędy są NOWE) ---
     # Tworzymy unikalny klucz na podstawie treści błędów
     error_fingerprint = "".join(sorted([str(e["message"]) for e in unique_errors]))
