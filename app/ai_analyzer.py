@@ -4,11 +4,19 @@ import json
 import hashlib
 from datetime import datetime
 from collections import Counter
-from app.logger import LOG_FILE, logger
 
-# 1. KONFIGURACJA I STAŁE
+# Importujemy logger, ale ścieżkę do pliku logów zdefiniujemy sami na internal.log
+from app.logger import logger
+
+# 1. KONFIGURACJA ŚCIEŻEK
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# KLUCZOWA ZMIANA: Analyzer czyta "internal.log" (tam gdzie są wszystkie błędy)
+LOG_FILE = os.path.join(BASE_DIR, "logs", "internal.log")
+CACHE_FILE = os.path.join(BASE_DIR, "shared_data", "error_cache.json")
+
+# ZOSTAWIAMY: To pozwala wyciąć datę z logu przed robieniem hasha
 TIMESTAMP_PATTERN = r"^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2},\d{3}"
-CACHE_FILE = "app/error_cache.json"
 
 
 # 2. POMOCNICZE FUNKCJE CACHE (Zarządzanie pamięcią błędów)
@@ -17,13 +25,15 @@ def get_last_error_hash():
         try:
             with open(CACHE_FILE, "r") as f:
                 return json.load(f).get("last_hash", "")
-        except:
+        except Exception:
             return ""
     return ""
 
 
 def save_error_hash(error_hash):
     try:
+        # Upewnij się, że folder shared_data istnieje
+        os.makedirs(os.path.dirname(CACHE_FILE), exist_ok=True)
         with open(CACHE_FILE, "w") as f:
             json.dump({"last_hash": error_hash}, f)
     except OSError as e:

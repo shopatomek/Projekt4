@@ -1033,3 +1033,271 @@ ValueError: invalid literal for int() with base 10: 'dadafaas'
 2026-02-23 23:58:52,105 | INFO | AI Analyzer: Przygotowano payload. Nowe błędy: 0
 2026-02-23 23:58:52,106 | INFO | ✅ System czysty. Brak nowych błędów w bieżącym interwale.
 2026-02-23 23:58:57,869 | INFO | 👋 Agent zatrzymany przez użytkownika.
+2026-02-24 10:02:02,673 | INFO | 🚀 Agent monitorujący uruchomiony (interwał: 5 minut)...
+2026-02-24 10:02:02,674 | INFO | ==================================================
+2026-02-24 10:02:02,676 | INFO | NEW SESSION STARTED | Automatic Monitoring Cycle
+2026-02-24 10:02:02,677 | INFO | ==================================================
+2026-02-24 10:02:02,678 | INFO | Scraper: start scraping data
+2026-02-24 10:02:02,680 | INFO | Parser: start parsing data
+2026-02-24 10:02:02,682 | ERROR | Parser: error parsing item 5 -> {'name': 'Ava', 'age': 'abc'}
+2026-02-24 10:02:02,684 | ERROR | Parser: error parsing item 7 -> {'name': 'Sophia', 'age': 'acafafas'}
+2026-02-24 10:02:02,685 | ERROR | Parser: error parsing item 9 -> {'name': 'Isabella', 'age': 'dadafaas'}
+2026-02-24 10:02:02,687 | ERROR | Parser: error parsing item 12 -> {'name': 'Luna', 'age': 'dafsasxx'}
+2026-02-24 10:02:02,688 | ERROR | Parser: error parsing item 14 -> {'name': 'Amelia', 'age': 'das'}
+2026-02-24 10:02:02,689 | INFO | Validator: start validation
+2026-02-24 10:02:02,690 | ERROR | Validator: invalid age for item 3 -> {'name': 'Liam', 'age': -30}
+2026-02-24 10:02:02,691 | ERROR | Validator: invalid age for item 5 -> {'name': 'Ethan', 'age': -35}
+2026-02-24 10:02:02,693 | ERROR | Validator: invalid age for item 6 -> {'name': 'Mason', 'age': -45}
+2026-02-24 10:02:02,694 | ERROR | Validator: invalid age for item 7 -> {'name': 'Logan', 'age': -50}
+2026-02-24 10:02:02,695 | ERROR | Validator: invalid age for item 8 -> {'name': 'Mia', 'age': -30}
+2026-02-24 10:02:02,697 | ERROR | Validator: invalid age for item 9 -> {'name': 'Lucas', 'age': -40}
+2026-02-24 10:02:02,698 | ERROR | Validator: invalid age for item 10 -> {'name': 'Oliver', 'age': -25}
+2026-02-24 10:02:02,740 | INFO | AI Analyzer: Przygotowano payload. Nowe błędy: 12
+2026-02-24 10:02:02,747 | INFO | 🚀 WYKRYTO BŁĘDY (12). Raport zapisany w shared_data/to_analyze.txt
+2026-02-24 10:03:02,744 | INFO | ==================================================
+2026-02-24 10:03:02,746 | INFO | NEW SESSION STARTED | Automatic Monitoring Cycle
+2026-02-24 10:03:02,748 | INFO | ==================================================
+2026-02-24 10:03:02,749 | INFO | Scraper: start scraping data
+2026-02-24 10:03:02,751 | INFO | Parser: start parsing data
+2026-02-24 10:03:02,753 | INFO | Validator: start validation
+2026-02-24 10:03:02,790 | INFO | AI Analyzer: Przygotowano payload. Nowe błędy: 0
+2026-02-24 10:03:02,791 | INFO | ✅ System czysty. Brak nowych błędów w bieżącym interwale.
+2026-02-24 10:04:02,788 | INFO | ==================================================
+2026-02-24 10:04:02,790 | INFO | NEW SESSION STARTED | Automatic Monitoring Cycle
+2026-02-24 10:04:02,791 | INFO | ==================================================
+2026-02-24 10:04:02,793 | INFO | Scraper: start scraping data
+2026-02-24 10:04:02,794 | INFO | Parser: start parsing data
+2026-02-24 10:04:02,796 | ERROR | Parser: error parsing item 5 -> {'name': 'Ava', 'age': 'abc'}
+2026-02-24 10:04:02,797 | ERROR | Parser: error parsing item 7 -> {'name': 'Sophia', 'age': 'acafafas'}
+2026-02-24 10:04:02,799 | ERROR | Parser: error parsing item 9 -> {'name': 'Isabella', 'age': 'dadafaas'}
+2026-02-24 10:04:02,800 | ERROR | Parser: error parsing item 12 -> {'name': 'Luna', 'age': 'dafsasxx'}
+2026-02-24 10:04:02,802 | ERROR | Parser: error parsing item 14 -> {'name': 'Amelia', 'age': 'das'}
+2026-02-24 10:04:02,803 | INFO | Validator: start validation
+2026-02-24 10:04:02,805 | ERROR | Validator: invalid age for item 3 -> {'name': 'Liam', 'age': -30}
+2026-02-24 10:04:02,806 | ERROR | Validator: invalid age for item 5 -> {'name': 'Ethan', 'age': -35}
+2026-02-24 10:04:02,808 | ERROR | Validator: invalid age for item 6 -> {'name': 'Mason', 'age': -45}
+2026-02-24 10:04:02,809 | ERROR | Validator: invalid age for item 7 -> {'name': 'Logan', 'age': -50}
+2026-02-24 10:04:02,811 | ERROR | Validator: invalid age for item 8 -> {'name': 'Mia', 'age': -30}
+2026-02-24 10:04:02,812 | ERROR | Validator: invalid age for item 9 -> {'name': 'Lucas', 'age': -40}
+2026-02-24 10:04:02,814 | ERROR | Validator: invalid age for item 10 -> {'name': 'Oliver', 'age': -25}
+2026-02-24 10:04:02,846 | INFO | AI Analyzer: Przygotowano payload. Nowe błędy: 12
+2026-02-24 10:04:02,851 | INFO | 🚀 WYKRYTO BŁĘDY (12). Raport zapisany w shared_data/to_analyze.txt
+2026-02-24 10:05:02,848 | INFO | ==================================================
+2026-02-24 10:05:02,850 | INFO | NEW SESSION STARTED | Automatic Monitoring Cycle
+2026-02-24 10:05:02,852 | INFO | ==================================================
+2026-02-24 10:05:02,854 | INFO | Scraper: start scraping data
+2026-02-24 10:05:02,856 | INFO | Parser: start parsing data
+2026-02-24 10:05:02,858 | INFO | Validator: start validation
+2026-02-24 10:05:02,896 | INFO | AI Analyzer: Przygotowano payload. Nowe błędy: 0
+2026-02-24 10:05:02,898 | INFO | ✅ System czysty. Brak nowych błędów w bieżącym interwale.
+2026-02-24 10:06:02,891 | INFO | ==================================================
+2026-02-24 10:06:02,892 | INFO | NEW SESSION STARTED | Automatic Monitoring Cycle
+2026-02-24 10:06:02,894 | INFO | ==================================================
+2026-02-24 10:06:02,895 | INFO | Scraper: start scraping data
+2026-02-24 10:06:02,897 | INFO | Parser: start parsing data
+2026-02-24 10:06:02,899 | ERROR | Parser: error parsing item 5 -> {'name': 'Ava', 'age': 'abc'}
+2026-02-24 10:06:02,901 | ERROR | Parser: error parsing item 7 -> {'name': 'Sophia', 'age': 'acafafas'}
+2026-02-24 10:06:02,902 | ERROR | Parser: error parsing item 9 -> {'name': 'Isabella', 'age': 'dadafaas'}
+2026-02-24 10:06:02,904 | ERROR | Parser: error parsing item 12 -> {'name': 'Luna', 'age': 'dafsasxx'}
+2026-02-24 10:06:02,905 | ERROR | Parser: error parsing item 14 -> {'name': 'Amelia', 'age': 'das'}
+2026-02-24 10:06:02,907 | INFO | Validator: start validation
+2026-02-24 10:06:02,908 | ERROR | Validator: invalid age for item 3 -> {'name': 'Liam', 'age': -30}
+2026-02-24 10:06:02,909 | ERROR | Validator: invalid age for item 5 -> {'name': 'Ethan', 'age': -35}
+2026-02-24 10:06:02,910 | ERROR | Validator: invalid age for item 6 -> {'name': 'Mason', 'age': -45}
+2026-02-24 10:06:02,912 | ERROR | Validator: invalid age for item 7 -> {'name': 'Logan', 'age': -50}
+2026-02-24 10:06:02,913 | ERROR | Validator: invalid age for item 8 -> {'name': 'Mia', 'age': -30}
+2026-02-24 10:06:02,915 | ERROR | Validator: invalid age for item 9 -> {'name': 'Lucas', 'age': -40}
+2026-02-24 10:06:02,917 | ERROR | Validator: invalid age for item 10 -> {'name': 'Oliver', 'age': -25}
+2026-02-24 10:06:02,952 | INFO | AI Analyzer: Przygotowano payload. Nowe błędy: 12
+2026-02-24 10:06:02,959 | INFO | 🚀 WYKRYTO BŁĘDY (12). Raport zapisany w shared_data/to_analyze.txt
+2026-02-24 10:07:02,960 | INFO | ==================================================
+2026-02-24 10:07:02,962 | INFO | NEW SESSION STARTED | Automatic Monitoring Cycle
+2026-02-24 10:07:02,963 | INFO | ==================================================
+2026-02-24 10:07:02,965 | INFO | Scraper: start scraping data
+2026-02-24 10:07:02,966 | INFO | Parser: start parsing data
+2026-02-24 10:07:02,969 | INFO | Validator: start validation
+2026-02-24 10:07:03,012 | INFO | AI Analyzer: Przygotowano payload. Nowe błędy: 0
+2026-02-24 10:07:03,016 | INFO | ✅ System czysty. Brak nowych błędów w bieżącym interwale.
+2026-02-24 10:08:03,014 | INFO | ==================================================
+2026-02-24 10:08:03,049 | INFO | NEW SESSION STARTED | Automatic Monitoring Cycle
+2026-02-24 10:08:03,051 | INFO | ==================================================
+2026-02-24 10:08:03,053 | INFO | Scraper: start scraping data
+2026-02-24 10:08:03,055 | INFO | Parser: start parsing data
+2026-02-24 10:08:03,057 | ERROR | Parser: error parsing item 5 -> {'name': 'Ava', 'age': 'abc'}
+2026-02-24 10:08:03,058 | ERROR | Parser: error parsing item 7 -> {'name': 'Sophia', 'age': 'acafafas'}
+2026-02-24 10:08:03,060 | ERROR | Parser: error parsing item 9 -> {'name': 'Isabella', 'age': 'dadafaas'}
+2026-02-24 10:08:03,061 | ERROR | Parser: error parsing item 12 -> {'name': 'Luna', 'age': 'dafsasxx'}
+2026-02-24 10:08:03,063 | ERROR | Parser: error parsing item 14 -> {'name': 'Amelia', 'age': 'das'}
+2026-02-24 10:08:03,064 | INFO | Validator: start validation
+2026-02-24 10:08:03,066 | ERROR | Validator: invalid age for item 3 -> {'name': 'Liam', 'age': -30}
+2026-02-24 10:08:03,067 | ERROR | Validator: invalid age for item 5 -> {'name': 'Ethan', 'age': -35}
+2026-02-24 10:08:03,076 | ERROR | Validator: invalid age for item 6 -> {'name': 'Mason', 'age': -45}
+2026-02-24 10:08:03,084 | ERROR | Validator: invalid age for item 7 -> {'name': 'Logan', 'age': -50}
+2026-02-24 10:08:03,086 | ERROR | Validator: invalid age for item 8 -> {'name': 'Mia', 'age': -30}
+2026-02-24 10:08:03,088 | ERROR | Validator: invalid age for item 9 -> {'name': 'Lucas', 'age': -40}
+2026-02-24 10:08:03,090 | ERROR | Validator: invalid age for item 10 -> {'name': 'Oliver', 'age': -25}
+2026-02-24 10:08:03,126 | INFO | AI Analyzer: Przygotowano payload. Nowe błędy: 12
+2026-02-24 10:08:03,135 | INFO | 🚀 WYKRYTO BŁĘDY (12). Raport zapisany w shared_data/to_analyze.txt
+2026-02-24 10:09:03,131 | INFO | ==================================================
+2026-02-24 10:09:03,133 | INFO | NEW SESSION STARTED | Automatic Monitoring Cycle
+2026-02-24 10:09:03,135 | INFO | ==================================================
+2026-02-24 10:09:03,136 | INFO | Scraper: start scraping data
+2026-02-24 10:09:03,138 | INFO | Parser: start parsing data
+2026-02-24 10:09:03,140 | INFO | Validator: start validation
+2026-02-24 10:09:03,189 | INFO | AI Analyzer: Przygotowano payload. Nowe błędy: 0
+2026-02-24 10:09:03,191 | INFO | ✅ System czysty. Brak nowych błędów w bieżącym interwale.
+2026-02-24 10:10:03,188 | INFO | ==================================================
+2026-02-24 10:10:03,190 | INFO | NEW SESSION STARTED | Automatic Monitoring Cycle
+2026-02-24 10:10:03,192 | INFO | ==================================================
+2026-02-24 10:10:03,193 | INFO | Scraper: start scraping data
+2026-02-24 10:10:03,194 | INFO | Parser: start parsing data
+2026-02-24 10:10:03,196 | ERROR | Parser: error parsing item 5 -> {'name': 'Ava', 'age': 'abc'}
+2026-02-24 10:10:03,198 | ERROR | Parser: error parsing item 7 -> {'name': 'Sophia', 'age': 'acafafas'}
+2026-02-24 10:10:03,200 | ERROR | Parser: error parsing item 9 -> {'name': 'Isabella', 'age': 'dadafaas'}
+2026-02-24 10:10:03,202 | ERROR | Parser: error parsing item 12 -> {'name': 'Luna', 'age': 'dafsasxx'}
+2026-02-24 10:10:03,204 | ERROR | Parser: error parsing item 14 -> {'name': 'Amelia', 'age': 'das'}
+2026-02-24 10:10:03,205 | INFO | Validator: start validation
+2026-02-24 10:10:03,206 | ERROR | Validator: invalid age for item 3 -> {'name': 'Liam', 'age': -30}
+2026-02-24 10:10:03,208 | ERROR | Validator: invalid age for item 5 -> {'name': 'Ethan', 'age': -35}
+2026-02-24 10:10:03,209 | ERROR | Validator: invalid age for item 6 -> {'name': 'Mason', 'age': -45}
+2026-02-24 10:10:03,211 | ERROR | Validator: invalid age for item 7 -> {'name': 'Logan', 'age': -50}
+2026-02-24 10:10:03,213 | ERROR | Validator: invalid age for item 8 -> {'name': 'Mia', 'age': -30}
+2026-02-24 10:10:03,215 | ERROR | Validator: invalid age for item 9 -> {'name': 'Lucas', 'age': -40}
+2026-02-24 10:10:03,217 | ERROR | Validator: invalid age for item 10 -> {'name': 'Oliver', 'age': -25}
+2026-02-24 10:10:03,255 | INFO | AI Analyzer: Przygotowano payload. Nowe błędy: 12
+2026-02-24 10:10:03,262 | INFO | 🚀 WYKRYTO BŁĘDY (12). Raport zapisany w shared_data/to_analyze.txt
+2026-02-24 10:11:03,258 | INFO | ==================================================
+2026-02-24 10:11:03,260 | INFO | NEW SESSION STARTED | Automatic Monitoring Cycle
+2026-02-24 10:11:03,261 | INFO | ==================================================
+2026-02-24 10:11:03,263 | INFO | Scraper: start scraping data
+2026-02-24 10:11:03,264 | INFO | Parser: start parsing data
+2026-02-24 10:11:03,266 | INFO | Validator: start validation
+2026-02-24 10:11:03,299 | INFO | AI Analyzer: Przygotowano payload. Nowe błędy: 0
+2026-02-24 10:11:03,301 | INFO | ✅ System czysty. Brak nowych błędów w bieżącym interwale.
+2026-02-24 10:12:03,297 | INFO | ==================================================
+2026-02-24 10:12:03,299 | INFO | NEW SESSION STARTED | Automatic Monitoring Cycle
+2026-02-24 10:12:03,301 | INFO | ==================================================
+2026-02-24 10:12:03,302 | INFO | Scraper: start scraping data
+2026-02-24 10:12:03,304 | INFO | Parser: start parsing data
+2026-02-24 10:12:03,305 | ERROR | Parser: error parsing item 5 -> {'name': 'Ava', 'age': 'abc'}
+2026-02-24 10:12:03,307 | ERROR | Parser: error parsing item 7 -> {'name': 'Sophia', 'age': 'acafafas'}
+2026-02-24 10:12:03,308 | ERROR | Parser: error parsing item 9 -> {'name': 'Isabella', 'age': 'dadafaas'}
+2026-02-24 10:12:03,309 | ERROR | Parser: error parsing item 12 -> {'name': 'Luna', 'age': 'dafsasxx'}
+2026-02-24 10:12:03,311 | ERROR | Parser: error parsing item 14 -> {'name': 'Amelia', 'age': 'das'}
+2026-02-24 10:12:03,313 | INFO | Validator: start validation
+2026-02-24 10:12:03,314 | ERROR | Validator: invalid age for item 3 -> {'name': 'Liam', 'age': -30}
+2026-02-24 10:12:03,316 | ERROR | Validator: invalid age for item 5 -> {'name': 'Ethan', 'age': -35}
+2026-02-24 10:12:03,317 | ERROR | Validator: invalid age for item 6 -> {'name': 'Mason', 'age': -45}
+2026-02-24 10:12:03,319 | ERROR | Validator: invalid age for item 7 -> {'name': 'Logan', 'age': -50}
+2026-02-24 10:12:03,320 | ERROR | Validator: invalid age for item 8 -> {'name': 'Mia', 'age': -30}
+2026-02-24 10:12:03,321 | ERROR | Validator: invalid age for item 9 -> {'name': 'Lucas', 'age': -40}
+2026-02-24 10:12:03,323 | ERROR | Validator: invalid age for item 10 -> {'name': 'Oliver', 'age': -25}
+2026-02-24 10:12:03,357 | INFO | AI Analyzer: Przygotowano payload. Nowe błędy: 12
+2026-02-24 10:12:03,364 | INFO | 🚀 WYKRYTO BŁĘDY (12). Raport zapisany w shared_data/to_analyze.txt
+2026-02-24 10:24:52,248 | INFO | 🚀 Agent monitorujący uruchomiony w Dockerze...
+2026-02-24 10:24:52,249 | INFO | ==================================================
+2026-02-24 10:24:52,251 | INFO | NEW SESSION STARTED | Automatic Monitoring Cycle
+2026-02-24 10:24:52,253 | INFO | ==================================================
+2026-02-24 10:24:52,255 | INFO | Scraper: start scraping data
+2026-02-24 10:24:52,257 | INFO | Parser: start parsing data
+2026-02-24 10:24:52,258 | ERROR | Parser: error parsing item 5 -> {'name': 'Ava', 'age': 'abc'}
+2026-02-24 10:24:52,265 | ERROR | Parser: error parsing item 7 -> {'name': 'Sophia', 'age': 'acafafas'}
+2026-02-24 10:24:52,272 | ERROR | Parser: error parsing item 9 -> {'name': 'Isabella', 'age': 'dadafaas'}
+2026-02-24 10:24:52,281 | ERROR | Parser: error parsing item 12 -> {'name': 'Luna', 'age': 'dafsasxx'}
+2026-02-24 10:24:52,288 | ERROR | Parser: error parsing item 14 -> {'name': 'Amelia', 'age': 'das'}
+2026-02-24 10:24:52,296 | INFO | Validator: start validation
+2026-02-24 10:24:52,297 | ERROR | Validator: invalid age for item 3 -> {'name': 'Liam', 'age': -30}
+2026-02-24 10:24:52,304 | ERROR | Validator: invalid age for item 5 -> {'name': 'Ethan', 'age': -35}
+2026-02-24 10:24:52,311 | ERROR | Validator: invalid age for item 6 -> {'name': 'Mason', 'age': -45}
+2026-02-24 10:24:52,319 | ERROR | Validator: invalid age for item 7 -> {'name': 'Logan', 'age': -50}
+2026-02-24 10:24:52,326 | ERROR | Validator: invalid age for item 8 -> {'name': 'Mia', 'age': -30}
+2026-02-24 10:24:52,331 | ERROR | Validator: invalid age for item 9 -> {'name': 'Lucas', 'age': -40}
+2026-02-24 10:24:52,336 | ERROR | Validator: invalid age for item 10 -> {'name': 'Oliver', 'age': -25}
+2026-02-24 10:24:52,423 | INFO | AI Analyzer: Przygotowano payload. Nowe błędy: 12
+2026-02-24 10:24:52,429 | INFO | 🚀 WYKRYTO NOWE BŁĘDY (12). Raport: /app/shared_data/to_analyze.txt
+2026-02-24 10:25:52,425 | INFO | ==================================================
+2026-02-24 10:25:52,427 | INFO | NEW SESSION STARTED | Automatic Monitoring Cycle
+2026-02-24 10:25:52,429 | INFO | ==================================================
+2026-02-24 10:25:52,430 | INFO | Scraper: start scraping data
+2026-02-24 10:25:52,432 | INFO | Parser: start parsing data
+2026-02-24 10:25:52,462 | INFO | Validator: start validation
+2026-02-24 10:25:52,543 | INFO | AI Analyzer: Przygotowano payload. Nowe błędy: 0
+2026-02-24 10:25:52,544 | INFO | ✅ System czysty. Brak nowych błędów w bieżącym interwale.
+2026-02-24 10:26:52,539 | INFO | ==================================================
+2026-02-24 10:26:52,541 | INFO | NEW SESSION STARTED | Automatic Monitoring Cycle
+2026-02-24 10:26:52,542 | INFO | ==================================================
+2026-02-24 10:26:52,544 | INFO | Scraper: start scraping data
+2026-02-24 10:26:52,545 | INFO | Parser: start parsing data
+2026-02-24 10:26:52,547 | ERROR | Parser: error parsing item 5 -> {'name': 'Ava', 'age': 'abc'}
+2026-02-24 10:26:52,553 | ERROR | Parser: error parsing item 7 -> {'name': 'Sophia', 'age': 'acafafas'}
+2026-02-24 10:26:52,560 | ERROR | Parser: error parsing item 9 -> {'name': 'Isabella', 'age': 'dadafaas'}
+2026-02-24 10:26:52,567 | ERROR | Parser: error parsing item 12 -> {'name': 'Luna', 'age': 'dafsasxx'}
+2026-02-24 10:26:52,575 | ERROR | Parser: error parsing item 14 -> {'name': 'Amelia', 'age': 'das'}
+2026-02-24 10:26:52,581 | INFO | Validator: start validation
+2026-02-24 10:26:52,582 | ERROR | Validator: invalid age for item 3 -> {'name': 'Liam', 'age': -30}
+2026-02-24 10:26:52,587 | ERROR | Validator: invalid age for item 5 -> {'name': 'Ethan', 'age': -35}
+2026-02-24 10:26:52,594 | ERROR | Validator: invalid age for item 6 -> {'name': 'Mason', 'age': -45}
+2026-02-24 10:26:52,600 | ERROR | Validator: invalid age for item 7 -> {'name': 'Logan', 'age': -50}
+2026-02-24 10:26:52,605 | ERROR | Validator: invalid age for item 8 -> {'name': 'Mia', 'age': -30}
+2026-02-24 10:26:52,611 | ERROR | Validator: invalid age for item 9 -> {'name': 'Lucas', 'age': -40}
+2026-02-24 10:26:52,617 | ERROR | Validator: invalid age for item 10 -> {'name': 'Oliver', 'age': -25}
+2026-02-24 10:26:52,680 | INFO | AI Analyzer: Przygotowano payload. Nowe błędy: 12
+2026-02-24 10:26:52,688 | INFO | 🚀 WYKRYTO NOWE BŁĘDY (12). Raport: /app/shared_data/to_analyze.txt
+2026-02-24 10:37:31,400 | INFO | 🚀 Agent monitorujący uruchomiony w Dockerze...
+2026-02-24 10:37:31,403 | INFO | ==================================================
+2026-02-24 10:37:31,406 | INFO | NEW SESSION STARTED | Automatic Monitoring Cycle
+2026-02-24 10:37:31,408 | INFO | ==================================================
+2026-02-24 10:37:31,411 | INFO | Scraper: start scraping data
+2026-02-24 10:37:31,438 | INFO | Parser: start parsing data
+2026-02-24 10:37:31,469 | INFO | Validator: start validation
+2026-02-24 10:37:31,524 | INFO | AI Analyzer: Te same błędy co w poprzednim cyklu. Pomijam raport.
+2026-02-24 10:37:31,526 | INFO | ✅ System czysty. Brak nowych błędów w bieżącym interwale.
+2026-02-24 10:38:31,522 | INFO | ==================================================
+2026-02-24 10:38:31,526 | INFO | NEW SESSION STARTED | Automatic Monitoring Cycle
+2026-02-24 10:38:31,528 | INFO | ==================================================
+2026-02-24 10:38:31,531 | INFO | Scraper: start scraping data
+2026-02-24 10:38:31,551 | INFO | Parser: start parsing data
+2026-02-24 10:38:31,583 | INFO | Validator: start validation
+2026-02-24 10:38:31,657 | INFO | AI Analyzer: Te same błędy co w poprzednim cyklu. Pomijam raport.
+2026-02-24 10:38:31,660 | INFO | ✅ System czysty. Brak nowych błędów w bieżącym interwale.
+2026-02-24 10:40:52,322 | INFO | 🚀 Agent monitorujący uruchomiony w Dockerze...
+2026-02-24 10:40:52,325 | INFO | ==================================================
+2026-02-24 10:40:52,328 | INFO | NEW SESSION STARTED | Automatic Monitoring Cycle
+2026-02-24 10:40:52,330 | INFO | ==================================================
+2026-02-24 10:40:52,333 | INFO | Scraper: start scraping data
+2026-02-24 10:40:52,359 | INFO | Parser: start parsing data
+2026-02-24 10:40:52,396 | INFO | Validator: start validation
+2026-02-24 10:40:52,478 | INFO | AI Analyzer: Przygotowano payload. Nowe błędy: 14
+2026-02-24 10:40:52,489 | INFO | 🚀 WYKRYTO NOWE BŁĘDY (14). Raport: /app/shared_data/to_analyze.txt
+2026-02-24 10:41:52,487 | INFO | ==================================================
+2026-02-24 10:41:52,490 | INFO | NEW SESSION STARTED | Automatic Monitoring Cycle
+2026-02-24 10:41:52,493 | INFO | ==================================================
+2026-02-24 10:41:52,495 | INFO | Scraper: start scraping data
+2026-02-24 10:41:52,524 | INFO | Parser: start parsing data
+2026-02-24 10:41:52,555 | INFO | Validator: start validation
+2026-02-24 10:41:52,610 | INFO | AI Analyzer: Te same błędy co w poprzednim cyklu. Pomijam raport.
+2026-02-24 10:41:52,613 | INFO | ✅ System czysty. Brak nowych błędów w bieżącym interwale.
+2026-02-24 10:42:52,609 | INFO | ==================================================
+2026-02-24 10:42:52,612 | INFO | NEW SESSION STARTED | Automatic Monitoring Cycle
+2026-02-24 10:42:52,615 | INFO | ==================================================
+2026-02-24 10:42:52,617 | INFO | Scraper: start scraping data
+2026-02-24 10:42:52,643 | INFO | Parser: start parsing data
+2026-02-24 10:42:52,675 | INFO | Validator: start validation
+2026-02-24 10:42:52,728 | INFO | AI Analyzer: Te same błędy co w poprzednim cyklu. Pomijam raport.
+2026-02-24 10:42:52,731 | INFO | ✅ System czysty. Brak nowych błędów w bieżącym interwale.
+2026-02-24 10:43:52,729 | INFO | ==================================================
+2026-02-24 10:43:52,732 | INFO | NEW SESSION STARTED | Automatic Monitoring Cycle
+2026-02-24 10:43:52,734 | INFO | ==================================================
+2026-02-24 10:43:52,737 | INFO | Scraper: start scraping data
+2026-02-24 10:43:52,762 | INFO | Parser: start parsing data
+2026-02-24 10:43:52,814 | INFO | Validator: start validation
+2026-02-24 10:43:52,887 | INFO | AI Analyzer: Te same błędy co w poprzednim cyklu. Pomijam raport.
+2026-02-24 10:43:52,891 | INFO | ✅ System czysty. Brak nowych błędów w bieżącym interwale.
+2026-02-24 10:44:52,890 | INFO | ==================================================
+2026-02-24 10:44:52,896 | INFO | NEW SESSION STARTED | Automatic Monitoring Cycle
+2026-02-24 10:44:52,899 | INFO | ==================================================
+2026-02-24 10:44:52,902 | INFO | Scraper: start scraping data
+2026-02-24 10:44:52,934 | INFO | Parser: start parsing data
+2026-02-24 10:44:53,028 | INFO | Validator: start validation
+2026-02-24 10:44:53,099 | INFO | AI Analyzer: Te same błędy co w poprzednim cyklu. Pomijam raport.
+2026-02-24 10:44:53,101 | INFO | ✅ System czysty. Brak nowych błędów w bieżącym interwale.

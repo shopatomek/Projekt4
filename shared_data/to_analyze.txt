@@ -1,16 +1,16 @@
 ### SYSTEM CONTEXT
 ==================
 Status: ERROR
-Total log lines analyzed: 16
-Total errors detected: 12
+Total log lines analyzed: 52
+Total errors detected: 14
 Session status: fresh
-Generated at: 2026-02-23T23:57:52.065766
+Generated at: 2026-02-24T10:40:52.477715
 
 ### MODULE ACTIVITY
 ==================
-Scraper: 1 events
-Parser: 6 events
-Validator: 8 events
+Scraper: 19 events
+Parser: 19 events
+Validator: 13 events
 
 ### UNIQUE ERROR ANALYSIS
 =========================
@@ -29,25 +29,31 @@ Validator: 8 events
 5) ERROR: Parser: error parsing item 14 -> {'name': 'Amelia', 'age': 'das'}
    OCCURRENCES: 1
 ------------------------------
-6) ERROR: Validator: invalid age for item 3 -> {'name': 'Liam', 'age': -30}
+6) ERROR: Parser: error parsing item 17 -> {'name': 'Charlotte', 'age': 'afas'}
    OCCURRENCES: 1
 ------------------------------
-7) ERROR: Validator: invalid age for item 5 -> {'name': 'Ethan', 'age': -35}
+7) ERROR: Validator: invalid age for item 3 -> {'name': 'Liam', 'age': -30}
    OCCURRENCES: 1
 ------------------------------
-8) ERROR: Validator: invalid age for item 6 -> {'name': 'Mason', 'age': -45}
+8) ERROR: Validator: invalid age for item 5 -> {'name': 'Ethan', 'age': -35}
    OCCURRENCES: 1
 ------------------------------
-9) ERROR: Validator: invalid age for item 7 -> {'name': 'Logan', 'age': -50}
+9) ERROR: Validator: invalid age for item 6 -> {'name': 'Mason', 'age': -45}
    OCCURRENCES: 1
 ------------------------------
-10) ERROR: Validator: invalid age for item 8 -> {'name': 'Mia', 'age': -30}
+10) ERROR: Validator: invalid age for item 7 -> {'name': 'Logan', 'age': -50}
    OCCURRENCES: 1
 ------------------------------
-11) ERROR: Validator: invalid age for item 9 -> {'name': 'Lucas', 'age': -40}
+11) ERROR: Validator: invalid age for item 8 -> {'name': 'Mia', 'age': -30}
    OCCURRENCES: 1
 ------------------------------
-12) ERROR: Validator: invalid age for item 10 -> {'name': 'Oliver', 'age': -25}
+12) ERROR: Validator: invalid age for item 9 -> {'name': 'Lucas', 'age': -40}
+   OCCURRENCES: 1
+------------------------------
+13) ERROR: Validator: invalid age for item 10 -> {'name': 'Oliver', 'age': -25}
+   OCCURRENCES: 1
+------------------------------
+14) ERROR: Validator: invalid age for item 11 -> {'name': 'Elijah', 'age': -35}
    OCCURRENCES: 1
 ------------------------------
 
