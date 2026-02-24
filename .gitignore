@@ -2,6 +2,7 @@
 __pycache__/
 *.py[cod]
 *$py.class
+*.so
 
 # Pytest i testowanie
 .pytest_cache/
@@ -17,7 +18,15 @@ venv/
 .venv/
 env/
 .env/
+bin/
+lib/
+develop-eggs/
+dist/
+build/
+*.egg-info/
 
 # Konfiguracja VS Code (opcjonalnie)
 .vscode/
-*.md
+Thumbs.db
+.idea/
+.DS_Store
