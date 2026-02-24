@@ -1350,3 +1350,20 @@ ValueError: invalid literal for int() with base 10: 'dadafaas'
 2026-02-24 12:42:30,593 | INFO | Parser: start parsing data
 2026-02-24 12:42:30,595 | INFO | Validator: start validation
 2026-02-24 12:42:30,622 | INFO | AI Analyzer: Przygotowano payload. Nowe błędy: 4 (Health: 92.2%)
+2026-02-24 11:56:33,279 | INFO | 🚀 Agent monitorujący uruchomiony w Dockerze...
+2026-02-24 11:56:33,283 | INFO | ==================================================
+2026-02-24 11:56:33,287 | INFO | NEW SESSION STARTED | Automatic Monitoring Cycle
+2026-02-24 11:56:33,290 | INFO | ==================================================
+2026-02-24 11:56:33,293 | INFO | Scraper: start scraping data
+2026-02-24 11:56:33,318 | INFO | Parser: start parsing data
+2026-02-24 11:56:33,348 | INFO | Validator: start validation
+2026-02-24 11:56:33,421 | INFO | AI Analyzer: Przygotowano payload. Nowe błędy: 5 (Health: 89.6%)
+2026-02-24 11:56:33,433 | INFO | 🚀 WYKRYTO NOWE BŁĘDY (5). Raport: /app/shared_data/to_analyze.txt
+2026-02-24 11:57:33,427 | INFO | ==================================================
+2026-02-24 11:57:33,430 | INFO | NEW SESSION STARTED | Automatic Monitoring Cycle
+2026-02-24 11:57:33,433 | INFO | ==================================================
+2026-02-24 11:57:33,435 | INFO | Scraper: start scraping data
+2026-02-24 11:57:33,458 | INFO | Parser: start parsing data
+2026-02-24 11:57:33,480 | INFO | Validator: start validation
+2026-02-24 11:57:33,535 | INFO | AI Analyzer: Przygotowano payload. Nowe błędy: 6 (Health: 86.0%)
+2026-02-24 11:57:33,542 | INFO | 🚀 WYKRYTO NOWE BŁĘDY (6). Raport: /app/shared_data/to_analyze.txt
