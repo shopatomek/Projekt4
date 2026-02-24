@@ -3,10 +3,30 @@ version: "3.8"
 services:
   agent-monitorujacy:
     build: .
-    container_name: projekt4_container
+    container_name: Projekt4
+    environment:
+      - PYTHONUNBUFFERED=1
     volumes:
-      # LEWA STRONA: Twój dysk | PRAWA STRONA: Wnętrze kontenera
       - ./logs:/app/logs
       - ./shared_data:/app/shared_data
-    # Jeśli skrypt się wywali, Docker spróbuje go podnieść
     restart: unless-stopped
+
+  n8n:
+    image: n8nio/n8n:latest
+    container_name: n8n_orchestrator
+    ports:
+      - "5678:5678"
+    environment:
+      - N8N_HOST=localhost
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=http
+      - N8N_BLOCK_FS_WRITE_ACCESS=false
+    volumes:
+      - ./shared_data:/home/node/.n8n-files
+      - n8n_data:/home/node/.n8n
+    restart: unless-stopped
+    depends_on:
+      - agent-monitorujacy
+
+volumes:
+  n8n_data:

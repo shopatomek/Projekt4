@@ -71,8 +71,8 @@ if __name__ == "__main__":
             run_agent_cycle()
 
             # Skróciłem interwał do 60s zgodnie z Twoim testowaniem
-            print("😴 Następne sprawdzenie za 60 sekund...")
-            time.sleep(60)
+            print("😴 Następne sprawdzenie za 5 minut")
+            time.sleep(300)
     except KeyboardInterrupt:
         logger.info("👋 Agent zatrzymany przez użytkownika.")
         print("\nZatrzymano.")

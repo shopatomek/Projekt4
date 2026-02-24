@@ -1,36 +1,39 @@
 ### SYSTEM CONTEXT
 ==================
 Status: ERROR
-System Health Score: 86.0%
-Error Rate: 14.0%
-Total events analyzed: 43
-Total errors detected: 6
-Generated at: 2026-02-24T11:57:33.535229
+System Health Score: 87.9%
+Error Rate: 12.1%
+Total events analyzed: 58
+Total errors detected: 7
+Generated at: 2026-02-24T18:15:54.126538
 
 ### MODULE ACTIVITY
 ==================
-Scraper: 15 events
-Parser: 15 events
-Validator: 12 events
+Scraper: 20 events
+Parser: 20 events
+Validator: 17 events
 
 ### UNIQUE ERROR ANALYSIS
 =========================
-1) ERROR: Parser: error parsing item 2 -> {'name': 'Mason', 'age': 'SUZJhVJ'}
+1) ERROR: Parser: error parsing item 6 -> {'name': 'Ava', 'age': 'EfhsA'}
    OCCURRENCES: 1
 ------------------------------
-2) ERROR: Parser: error parsing item 9 -> {'name': 'Logan', 'age': 'SgAwX'}
+2) ERROR: Parser: error parsing item 14 -> {'name': 'Lucas', 'age': 'oSJLk'}
    OCCURRENCES: 1
 ------------------------------
-3) ERROR: Parser: error parsing item 10 -> {'name': 'Ethan', 'age': 'XVJ'}
+3) ERROR: Parser: error parsing item 15 -> {'name': 'Ava', 'age': 'XjjqzgTC'}
    OCCURRENCES: 1
 ------------------------------
-4) ERROR: Validator: invalid age for item 2 -> {'name': 'Ava', 'age': -24}
+4) ERROR: Validator: invalid age for item 6 -> {'name': 'Isabella', 'age': -36}
    OCCURRENCES: 1
 ------------------------------
-5) ERROR: Validator: invalid age for item 6 -> {'name': 'Lucas', 'age': -38}
+5) ERROR: Validator: invalid age for item 8 -> {'name': 'Logan', 'age': -38}
    OCCURRENCES: 1
 ------------------------------
-6) ERROR: Validator: invalid age for item 9 -> {'name': 'Charlotte', 'age': -23}
+6) ERROR: Validator: invalid age for item 11 -> {'name': 'Isabella', 'age': -42}
+   OCCURRENCES: 1
+------------------------------
+7) ERROR: Validator: invalid age for item 13 -> {'name': 'Charlotte', 'age': -41}
    OCCURRENCES: 1
 ------------------------------
 
