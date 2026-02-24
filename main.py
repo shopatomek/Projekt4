@@ -70,7 +70,6 @@ if __name__ == "__main__":
         while True:
             run_agent_cycle()
 
-            # Skróciłem interwał do 60s zgodnie z Twoim testowaniem
             print("😴 Następne sprawdzenie za 5 minut")
             time.sleep(300)
     except KeyboardInterrupt:
