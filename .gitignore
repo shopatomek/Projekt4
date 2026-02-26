@@ -17,6 +17,7 @@ pytestdebug.log
 venv/
 .venv/
 env/
+.env
 .env/
 bin/
 lib/
@@ -24,6 +25,7 @@ develop-eggs/
 dist/
 build/
 *.egg-info/
+*.log
 
 # Konfiguracja VS Code (opcjonalnie)
 .vscode/

@@ -1,66 +1,111 @@
-# Smart Monitoring Agent & Log Analyzer
+# 🤖 AI-Driven SRE Monitoring & Orchestration System
 
-A robust Python-based monitoring system designed to scrape, parse, and validate data with an intelligent AI-ready reporting layer. This project focuses on **high-signal logging**, **dynamic health analytics**, and **automated error deduplication**, ensuring that monitoring stays efficient and costs (AI tokens) are kept to a minimum.
+A sophisticated, self-healing monitoring pipeline that bridges **Python-based data engineering** with **AI orchestration (n8n & Gemini)**. The system doesn't just find errors; it analyzes them via LLM, notifies stakeholders, and manages its own state by cleaning up processed data.
+
+---
+
+## 🏗 System Architecture & Workflow
+
+The project implements a full **Observe-Analyze-Act** loop:
+
+1. **Observability (Python Agent):** A custom agent monitors internal processes, generates health metrics, and hashes error signatures.
+2. **Shared State (Docker Volume):** When a high-signal event occurs, a payload is dropped into a shared volume, acting as a bridge between the agent and the orchestrator.
+3. **Intelligence (n8n & Gemini):** n8n detects new reports, sends them to **Google Gemini 1.5 Flash** for root-cause analysis, and formats a human-readable alert.
+4. **Action & Cleanup (Node.js):** After sending the alert via **Telegram**, n8n executes a native JavaScript cleanup script to wipe the processed report, ensuring no duplicate alerts and a clean system state.
+
+---
 
 ## 🛠 Tech Stack
 
-- **Language:** Python 3.11+
-- **Logging:** Advanced `logging` module with custom `Filters` and `RotatingFileHandler`.
-- **Containerization:** Docker, Docker Compose.
-- **Analysis:** Integrated AI-Adapter for LLM-based diagnostics.
+- **Backend:** Python 3.11+ (Logging, Hashing, Analytics)
+- **Orchestration:** n8n (Docker-hosted)
+- **Intelligence:** Google Gemini 1.5 Flash API
+- **DevOps:** Docker, Docker Compose (Root-level orchestration)
+- **Communications:** Telegram Bot API
 
-## 🚀 Key Features
+---
 
-- **Dynamic Data Generation:** Features a "Chaos Generator" that simulates real-world API variability, producing a mix of successful records and various error types (Parser/Validator) for robust monitoring testing.
-- **System Health Analytics:** Real-time calculation of **Health Score** and **Error Rate** based on infrastructure-level log density.
-- **Intelligent Log Filtering:** Custom architecture that filters out repetitive noise while preserving critical process information and errors.
-- **Error Hashing & Deduplication:** State-aware analyzer that hashes error sets. Reports are triggered only when a _new_ error signature is detected, preventing redundant alerts.
-- **AI-Ready Payloads:** Automatically generates focused prompts in `to_analyze.txt`, providing AI with context, statistics, and raw error data for instant root-cause analysis.
-- **Dockerized Architecture:** Fully containerized environment using Docker Compose, featuring shared volumes for seamless integration with external tools like n8n.
+## 🚀 Key Features (Portfolio Highlights)
+
+- **AI-Native Diagnostics:** Uses LLM to translate raw stack traces into actionable "Fix-it" plans.
+- **Sandbox-Bypassed Orchestration:** Configured n8n with specialized Docker environments (`NODE_FUNCTION_ALLOW_BUILTIN`) to allow native filesystem interaction via JavaScript.
+- **Idempotent Alerting:** The system ensures that the same error doesn't trigger multiple alerts by using state-aware hashing, saving AI tokens and developer attention.
+- **Automated State Management:** Implements a "zero-leftover" policy in shared volumes using automated post-processing cleanup.
+
+---
 
 ## 📊 Monitoring & Analytics Logic
 
-The system implements a **proactive observability** model. Instead of just reporting _that_ an error occurred, it provides context on the system's overall stability during each session.
+The system moves beyond simple "error logging" into **Proactive Observability**. It treats the log stream as a data source to calculate the real-time stability of the infrastructure.
 
-### The Mathematical Formula
+### The Signal-to-Noise Methodology
 
-The engine evaluates the "noise" and stability of the entire process by analyzing the log stream from the `NEW SESSION STARTED` marker to the end of the cycle.
+Instead of alerting on every single warning, the agent analyzes the **Log Density** within a specific execution session. This allows the system to distinguish between "transient hiccups" and "systemic degradation."
 
-1. **Total Events ($N_{total}$):** Every recorded event (Info, Debug, Warning, Error) in the current session.
-2. **Error Events ($N_{errors}$):** Critical failures captured by the Parser or Validator.
+#### 1. Total Events ($N_{total}$)
 
-$$Error\ Rate = \left( \frac{N_{errors}}{N_{total}} \right) \times 100$$
-$$Health\ Score = 100\% - Error\ Rate$$
+This represents the sum of all system activities (INFO, DEBUG, WARNING, ERROR). It serves as the **baseline** for normal system chatter.
 
-### Why this approach?
+#### 2. Error Events ($N_{errors}$)
 
-This methodology follows **SRE (Site Reliability Engineering)** principles. By monitoring the ratio of errors to total system chatter, the agent can detect "degraded states" before a total system failure occurs. A drop in the **Health Score** provides a high-signal trigger for AI intervention.
+Specifically targeted critical failures (Parser exceptions, Validator breaches).
 
-## 📂 Project Structure
+#### 3. Mathematical Indicators
 
-- `app/scraper.py` - Dynamic data acquisition & chaos generation.
-- `app/parser.py` - Data transformation with robust error handling.
-- `app/validator.py` - Data integrity verification.
-- `app/logger.py` - Custom filtering & formatting engine.
-- `app/ai_analyzer.py` - Statistical engine, error hashing & session management.
-- `app/ai_adapter.py` - Prompt engineering & AI payload formatting.
-- `main.py` - Main orchestration loop.
+We use two primary metrics to determine if an AI intervention is necessary:
 
-## 🔧 Installation & Usage
+- **Error Rate ($ER$):** The percentage of system activity that results in failure.
+  $$ER = \left( \frac{N_{errors}}{N_{total}} \right) \times 100$$
+- **Health Score ($HS$):** A high-level stability index. A drop below a specific threshold (e.g., 80%) triggers the n8n orchestration pipeline.
+  $$HS = 100\% - ER$$
+
+### Why this matters for the business?
+
+1. **Token Efficiency:** By calculating these scores locally in Python, we only trigger the expensive LLM (Gemini) analysis when the `Health Score` indicates a genuine issue.
+2. **Contextual Alerts:** The AI doesn't just receive an error; it receives the context (e.g., _"Error rate is 15%, suggesting a degraded state rather than a total crash"_).
+3. **Noise Reduction:** Minor warnings are absorbed into the $N_{total}$ without waking up the engineer, preventing "alert fatigue."
+
+---
+
+## 🔧 Installation & Security
+
+To protect sensitive data, this project uses an environment-based configuration. **Never commit your `.env` file.**
 
 1. **Clone the repository:**
+
    ```bash
    git clone [https://github.com/shopatomek/Projekt4.git](https://github.com/shopatomek/Projekt4.git)
    cd Projekt4
    ```
-2. **Run with Docker:**
+
+2. **Configure Environment:**
+   Create a `.env` file based on the provided template:
 
    ```bash
-   docker-compose up --build
+   cp .env.example .env
+   # Edit .env and add your API keys (Gemini, Telegram)
    ```
 
-3. **Monitor Output:**
+3. **Run the Stack:**
 
-   Real-time logs: ./logs/internal.log
+   ```bash
+   docker-compose up -d --build
+   ```
 
-   AI Reports: ./shared_data/to_analyze.txt
+4. **Setup n8n:**
+   - Open `http://localhost:5678`.
+   - **Import Logic:** Open the Workflow Menu (top right), select **Import from File**, and choose `n8n/monitoring_workflow.json`.
+   - **Credentials:** Double-click Gemini/Telegram nodes to link your API keys.
+   - **Activate:** Toggle the **Active** switch to enable 24/7 monitoring.
+   - **Dashboard:** Access live reports at `http://localhost:5678/webhook/dashboard`.
+
+---
+
+## 📂 Project Structure
+
+- `app/` - Python Monitoring Agent (Logic, Analytics, Logging).
+- `n8n/` - Exported workflow JSON (Import this into your n8n instance).
+- `docker-compose.yml` - Multi-container setup (Agent + n8n + Volumes).
+- `shared_data/` - Interaction layer for inter-container communication.
+- `logs/` - Internal system logs.
+- `.env.example` - Template for environment variables.
