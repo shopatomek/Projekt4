@@ -109,3 +109,11 @@ To protect sensitive data, this project uses an environment-based configuration.
 - `shared_data/` - Interaction layer for inter-container communication.
 - `logs/` - Internal system logs.
 - `.env.example` - Template for environment variables.
+
+## Security Design Decisions
+
+- Containers run as non-root (UID mapping).
+- No wildcard module permissions in n8n.
+- Explicit filesystem mount location.
+- Pinned Docker image versions.
+- Secrets managed via .env (excluded from VCS).

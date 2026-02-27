@@ -3,36 +3,44 @@ version: "3.8"
 services:
   agent-monitorujacy:
     build: .
-    container_name: Projekt4
-    environment:
-      - PYTHONUNBUFFERED=1
+    container_name: projekt4
+    env_file:
+      - .env
+    user: "${PUID}:${PGID}"
     volumes:
       - ./logs:/app/logs
       - ./shared_data:/app/shared_data
     restart: unless-stopped
+    networks:
+      - backend
 
   n8n:
-    image: n8nio/n8n:latest
+    image: n8nio/n8n:2.9.3
     container_name: n8n_orchestrator
-    user: root
+    user: "${PUID}:${PGID}"
     ports:
       - "5678:5678"
     environment:
-      - N8N_HOST=localhost
-      - N8N_PORT=5678
-      - N8N_PROTOCOL=http
-      - NODE_FUNCTION_ALLOW_BUILTIN=*
-      - NODE_FUNCTION_ALLOW_EXTERNAL=*
-      - N8N_BLOCK_FS_WRITE_ACCESS=false
-      - N8N_BLOCK_FS_READ_ACCESS=false
-      - N8N_RUNNERS_ENABLED=false
-      - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=false
+      - N8N_HOST=${N8N_HOST}
+      - N8N_PORT=${N8N_PORT}
+      - N8N_PROTOCOL=${N8N_PROTOCOL}
+      - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=${N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS}
+      # Jedna zmienna dla obu: węzeł Read/Write Files + Code Node (fs)
+      - N8N_RESTRICT_FILE_ACCESS_TO=${N8N_RESTRICT_FILE_ACCESS_TO}
+      # Zezwolenie na moduły Node.js w Code Node
+      - NODE_FUNCTION_ALLOW_BUILTIN=${NODE_FUNCTION_ALLOW_BUILTIN}
+      - NODE_FUNCTION_ALLOW_EXTERNAL=${NODE_FUNCTION_ALLOW_EXTERNAL}
     volumes:
-      - ./shared_data:/root/.n8n-files
-      - n8n_data:/root/.n8n
+      - n8n_data:/home/node/.n8n # dane n8n (workflows, credentials)
+      - ./shared_data:/home/node/.n8n-files # wymagana ścieżka bazowa dla Read/Write Files
+      - ./shared_data:/home/node/data # ta sama zawartość dostępna też przez /data (Code Node)
     restart: unless-stopped
-    depends_on:
-      - agent-monitorujacy
+    networks:
+      - backend
 
 volumes:
   n8n_data:
+
+networks:
+  backend:
+    driver: bridge

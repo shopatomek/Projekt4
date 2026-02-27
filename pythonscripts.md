@@ -15,7 +15,7 @@ python -m pytest tests/test_ai_adapter.py
 
 docker-compose up --build
 docker-compose up -d
-docker logs -f Projekt4
+docker logs -f projekt4
 
 ## Zrób to, aby odświeżyć agenta po zmianie kodu python w projekcie:
 

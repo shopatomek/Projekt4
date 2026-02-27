@@ -1,0 +1,39 @@
+### SYSTEM CONTEXT
+==================
+Status: ERROR
+System Health Score: 90.8%
+Error Rate: 9.2%
+Total events analyzed: 65
+Total errors detected: 6
+Generated at: 2026-02-27T14:40:40.870266
+
+### MODULE ACTIVITY
+==================
+Scraper: 22 events
+Parser: 22 events
+Validator: 20 events
+
+### UNIQUE ERROR ANALYSIS
+=========================
+1) ERROR: Parser: error parsing item 7 -> {'name': 'Isabella', 'age': 'kqCC'}
+   OCCURRENCES: 1
+------------------------------
+2) ERROR: Parser: error parsing item 14 -> {'name': 'Oliver', 'age': 'acPcG'}
+   OCCURRENCES: 1
+------------------------------
+3) ERROR: Validator: invalid age for item 1 -> {'name': 'Charlotte', 'age': -43}
+   OCCURRENCES: 1
+------------------------------
+4) ERROR: Validator: invalid age for item 8 -> {'name': 'Mason', 'age': -28}
+   OCCURRENCES: 1
+------------------------------
+5) ERROR: Validator: invalid age for item 12 -> {'name': 'Isabella', 'age': -35}
+   OCCURRENCES: 1
+------------------------------
+6) ERROR: Validator: invalid age for item 18 -> {'name': 'Isabella', 'age': -26}
+   OCCURRENCES: 1
+------------------------------
+
+### INSTRUCTIONS
+================
+Przeanalizuj błędy, zwróć uwagę na Health Score i zaproponuj rozwiązanie.
