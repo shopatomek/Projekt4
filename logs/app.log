@@ -1,9 +1,0 @@
-2026-02-27 14:40:40,718 | INFO | 🚀 Agent monitorujący uruchomiony w Dockerze...
-2026-02-27 14:40:40,721 | INFO | ==================================================
-2026-02-27 14:40:40,723 | INFO | NEW SESSION STARTED | Automatic Monitoring Cycle
-2026-02-27 14:40:40,725 | INFO | ==================================================
-2026-02-27 14:40:40,727 | INFO | Scraper: start scraping data
-2026-02-27 14:40:40,769 | INFO | Parser: start parsing data
-2026-02-27 14:40:40,799 | INFO | Validator: start validation
-2026-02-27 14:40:40,870 | INFO | AI Analyzer: Przygotowano payload. Nowe błędy: 6 (Health: 90.8%)
-2026-02-27 14:40:40,879 | INFO | 🚀 WYKRYTO NOWE BŁĘDY (6). Raport: /app/shared_data/to_analyze.txt
