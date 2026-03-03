@@ -1,0 +1,33 @@
+### SYSTEM CONTEXT
+==================
+Status: WARNING
+System Health Score: 92.9%
+Error Rate: 7.1%
+Total events analyzed: 56
+Total errors detected: 4
+Generated at: 2026-03-03T14:38:22.438379
+
+### MODULE ACTIVITY
+==================
+Scraper: 19 events
+Parser: 19 events
+Validator: 17 events
+
+### UNIQUE ERROR ANALYSIS
+=========================
+1) ERROR: Parser: error parsing item 7 -> {'name': 'Isabella', 'age': 'dwmGb'}
+   OCCURRENCES: 1
+------------------------------
+2) ERROR: Parser: error parsing item 11 -> {'name': 'Ava', 'age': 'Cbrhg'}
+   OCCURRENCES: 1
+------------------------------
+3) ERROR: Validator: invalid age for item 5 -> {'name': 'Amelia', 'age': -1}
+   OCCURRENCES: 1
+------------------------------
+4) ERROR: Validator: invalid age for item 7 -> {'name': 'Mason', 'age': -44}
+   OCCURRENCES: 1
+------------------------------
+
+### INSTRUCTIONS
+================
+Przeanalizuj błędy, zwróć uwagę na Health Score i zaproponuj rozwiązanie.

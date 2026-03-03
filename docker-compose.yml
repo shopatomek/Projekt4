@@ -7,6 +7,8 @@ services:
     env_file:
       - .env
     user: "${PUID}:${PGID}"
+    environment:
+      - TZ=Europe/Warsaw
     volumes:
       - ./logs:/app/logs
       - ./shared_data:/app/shared_data
@@ -21,6 +23,7 @@ services:
     ports:
       - "5678:5678"
     environment:
+      - TZ=Europe/Warsaw
       - N8N_HOST=${N8N_HOST}
       - N8N_PORT=${N8N_PORT}
       - N8N_PROTOCOL=${N8N_PROTOCOL}

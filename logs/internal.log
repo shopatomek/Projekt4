@@ -1,0 +1,108 @@
+2026-03-03 14:38:22,293 | INFO | 🚀 Agent monitorujący uruchomiony w Dockerze...
+2026-03-03 14:38:22,298 | INFO | ==================================================
+2026-03-03 14:38:22,303 | INFO | NEW SESSION STARTED | Automatic Monitoring Cycle
+2026-03-03 14:38:22,307 | INFO | ==================================================
+2026-03-03 14:38:22,314 | INFO | Scraper: start scraping data
+2026-03-03 14:38:22,318 | INFO | Scraper: item 1 -> {'name': 'Ava', 'age': '39'}
+2026-03-03 14:38:22,319 | INFO | Scraper: item 2 -> {'name': 'Amelia', 'age': '23'}
+2026-03-03 14:38:22,320 | INFO | Scraper: item 3 -> {'name': 'Luna', 'age': '47'}
+2026-03-03 14:38:22,322 | INFO | Scraper: item 4 -> {'name': 'Lucas', 'age': '63'}
+2026-03-03 14:38:22,324 | INFO | Scraper: item 5 -> {'name': 'Amelia', 'age': '-1'}
+2026-03-03 14:38:22,326 | INFO | Scraper: item 6 -> {'name': 'Amelia', 'age': '30'}
+2026-03-03 14:38:22,329 | INFO | Scraper: item 7 -> {'name': 'Isabella', 'age': 'dwmGb'}
+2026-03-03 14:38:22,330 | INFO | Scraper: item 8 -> {'name': 'Mason', 'age': '-44'}
+2026-03-03 14:38:22,332 | INFO | Scraper: item 9 -> {'name': 'Oliver', 'age': '76'}
+2026-03-03 14:38:22,333 | INFO | Scraper: item 10 -> {'name': 'Eva', 'age': '96'}
+2026-03-03 14:38:22,335 | INFO | Scraper: item 11 -> {'name': 'Ava', 'age': 'Cbrhg'}
+2026-03-03 14:38:22,337 | INFO | Scraper: item 12 -> {'name': 'Charlotte', 'age': '19'}
+2026-03-03 14:38:22,339 | INFO | Scraper: item 13 -> {'name': 'Mason', 'age': '44'}
+2026-03-03 14:38:22,341 | INFO | Scraper: item 14 -> {'name': 'Eva', 'age': '21'}
+2026-03-03 14:38:22,342 | INFO | Scraper: item 15 -> {'name': 'Lucas', 'age': '71'}
+2026-03-03 14:38:22,343 | INFO | Scraper: item 16 -> {'name': 'Elijah', 'age': '71'}
+2026-03-03 14:38:22,345 | INFO | Scraper: item 17 -> {'name': 'Luna', 'age': '62'}
+2026-03-03 14:38:22,346 | INFO | Scraper: finished, fetched 17 items
+2026-03-03 14:38:22,347 | INFO | Parser: start parsing data
+2026-03-03 14:38:22,350 | INFO | Parser: successfully parsed item 1 -> {'name': 'Ava', 'age': 39}
+2026-03-03 14:38:22,351 | INFO | Parser: successfully parsed item 2 -> {'name': 'Amelia', 'age': 23}
+2026-03-03 14:38:22,353 | INFO | Parser: successfully parsed item 3 -> {'name': 'Luna', 'age': 47}
+2026-03-03 14:38:22,355 | INFO | Parser: successfully parsed item 4 -> {'name': 'Lucas', 'age': 63}
+2026-03-03 14:38:22,357 | INFO | Parser: successfully parsed item 5 -> {'name': 'Amelia', 'age': -1}
+2026-03-03 14:38:22,359 | INFO | Parser: successfully parsed item 6 -> {'name': 'Amelia', 'age': 30}
+2026-03-03 14:38:22,360 | ERROR | Parser: error parsing item 7 -> {'name': 'Isabella', 'age': 'dwmGb'}
+2026-03-03 14:38:22,362 | INFO | Parser: successfully parsed item 8 -> {'name': 'Mason', 'age': -44}
+2026-03-03 14:38:22,363 | INFO | Parser: successfully parsed item 9 -> {'name': 'Oliver', 'age': 76}
+2026-03-03 14:38:22,365 | INFO | Parser: successfully parsed item 10 -> {'name': 'Eva', 'age': 96}
+2026-03-03 14:38:22,366 | ERROR | Parser: error parsing item 11 -> {'name': 'Ava', 'age': 'Cbrhg'}
+2026-03-03 14:38:22,369 | INFO | Parser: successfully parsed item 12 -> {'name': 'Charlotte', 'age': 19}
+2026-03-03 14:38:22,371 | INFO | Parser: successfully parsed item 13 -> {'name': 'Mason', 'age': 44}
+2026-03-03 14:38:22,373 | INFO | Parser: successfully parsed item 14 -> {'name': 'Eva', 'age': 21}
+2026-03-03 14:38:22,375 | INFO | Parser: successfully parsed item 15 -> {'name': 'Lucas', 'age': 71}
+2026-03-03 14:38:22,376 | INFO | Parser: successfully parsed item 16 -> {'name': 'Elijah', 'age': 71}
+2026-03-03 14:38:22,377 | INFO | Parser: successfully parsed item 17 -> {'name': 'Luna', 'age': 62}
+2026-03-03 14:38:22,378 | INFO | Parser: finished, parsed 15 items
+2026-03-03 14:38:22,380 | INFO | Validator: start validation
+2026-03-03 14:38:22,382 | INFO | Validator: item 1 valid -> {'name': 'Ava', 'age': 39}
+2026-03-03 14:38:22,383 | INFO | Validator: item 2 valid -> {'name': 'Amelia', 'age': 23}
+2026-03-03 14:38:22,384 | INFO | Validator: item 3 valid -> {'name': 'Luna', 'age': 47}
+2026-03-03 14:38:22,386 | INFO | Validator: item 4 valid -> {'name': 'Lucas', 'age': 63}
+2026-03-03 14:38:22,388 | ERROR | Validator: invalid age for item 5 -> {'name': 'Amelia', 'age': -1}
+2026-03-03 14:38:22,391 | INFO | Validator: item 6 valid -> {'name': 'Amelia', 'age': 30}
+2026-03-03 14:38:22,392 | ERROR | Validator: invalid age for item 7 -> {'name': 'Mason', 'age': -44}
+2026-03-03 14:38:22,395 | INFO | Validator: item 8 valid -> {'name': 'Oliver', 'age': 76}
+2026-03-03 14:38:22,397 | INFO | Validator: item 9 valid -> {'name': 'Eva', 'age': 96}
+2026-03-03 14:38:22,398 | INFO | Validator: item 10 valid -> {'name': 'Charlotte', 'age': 19}
+2026-03-03 14:38:22,399 | INFO | Validator: item 11 valid -> {'name': 'Mason', 'age': 44}
+2026-03-03 14:38:22,401 | INFO | Validator: item 12 valid -> {'name': 'Eva', 'age': 21}
+2026-03-03 14:38:22,402 | INFO | Validator: item 13 valid -> {'name': 'Lucas', 'age': 71}
+2026-03-03 14:38:22,404 | INFO | Validator: item 14 valid -> {'name': 'Elijah', 'age': 71}
+2026-03-03 14:38:22,406 | INFO | Validator: item 15 valid -> {'name': 'Luna', 'age': 62}
+2026-03-03 14:38:22,407 | INFO | Validator: finished, validated 13 items
+2026-03-03 14:38:22,438 | INFO | AI Analyzer: Przygotowano payload. Nowe błędy: 4 (Health: 92.9%)
+2026-03-03 14:38:22,448 | INFO | 🚀 WYKRYTO NOWE BŁĘDY (4). Raport: /app/shared_data/to_analyze.txt
+2026-03-03 14:43:22,429 | INFO | ==================================================
+2026-03-03 14:43:22,432 | INFO | NEW SESSION STARTED | Automatic Monitoring Cycle
+2026-03-03 14:43:22,434 | INFO | ==================================================
+2026-03-03 14:43:22,437 | INFO | Scraper: start scraping data
+2026-03-03 14:43:22,439 | INFO | Scraper: item 1 -> {'name': 'Lucas', 'age': '-43'}
+2026-03-03 14:43:22,440 | INFO | Scraper: item 2 -> {'name': 'Liam', 'age': '18'}
+2026-03-03 14:43:22,442 | INFO | Scraper: item 3 -> {'name': 'Lucas', 'age': '91'}
+2026-03-03 14:43:22,443 | INFO | Scraper: item 4 -> {'name': 'Luna', 'age': '-4'}
+2026-03-03 14:43:22,444 | INFO | Scraper: item 5 -> {'name': 'Amelia', 'age': 'Kdx'}
+2026-03-03 14:43:22,446 | INFO | Scraper: item 6 -> {'name': 'Isabella', 'age': '72'}
+2026-03-03 14:43:22,447 | INFO | Scraper: item 7 -> {'name': 'Ava', 'age': '22'}
+2026-03-03 14:43:22,449 | INFO | Scraper: item 8 -> {'name': 'Noah', 'age': 'irciO'}
+2026-03-03 14:43:22,450 | INFO | Scraper: item 9 -> {'name': 'Olivia', 'age': '96'}
+2026-03-03 14:43:22,451 | INFO | Scraper: item 10 -> {'name': 'Ava', 'age': 'fdK'}
+2026-03-03 14:43:22,452 | INFO | Scraper: item 11 -> {'name': 'Mia', 'age': '86'}
+2026-03-03 14:43:22,453 | INFO | Scraper: item 12 -> {'name': 'Ethan', 'age': 'HULLFoBx'}
+2026-03-03 14:43:22,454 | INFO | Scraper: item 13 -> {'name': 'Charlotte', 'age': 'BVT'}
+2026-03-03 14:43:22,456 | INFO | Scraper: item 14 -> {'name': 'Olivia', 'age': 'mij'}
+2026-03-03 14:43:22,458 | INFO | Scraper: finished, fetched 14 items
+2026-03-03 14:43:22,461 | INFO | Parser: start parsing data
+2026-03-03 14:43:22,463 | INFO | Parser: successfully parsed item 1 -> {'name': 'Lucas', 'age': -43}
+2026-03-03 14:43:22,465 | INFO | Parser: successfully parsed item 2 -> {'name': 'Liam', 'age': 18}
+2026-03-03 14:43:22,466 | INFO | Parser: successfully parsed item 3 -> {'name': 'Lucas', 'age': 91}
+2026-03-03 14:43:22,467 | INFO | Parser: successfully parsed item 4 -> {'name': 'Luna', 'age': -4}
+2026-03-03 14:43:22,469 | ERROR | Parser: error parsing item 5 -> {'name': 'Amelia', 'age': 'Kdx'}
+2026-03-03 14:43:22,471 | INFO | Parser: successfully parsed item 6 -> {'name': 'Isabella', 'age': 72}
+2026-03-03 14:43:22,472 | INFO | Parser: successfully parsed item 7 -> {'name': 'Ava', 'age': 22}
+2026-03-03 14:43:22,473 | ERROR | Parser: error parsing item 8 -> {'name': 'Noah', 'age': 'irciO'}
+2026-03-03 14:43:22,474 | INFO | Parser: successfully parsed item 9 -> {'name': 'Olivia', 'age': 96}
+2026-03-03 14:43:22,475 | ERROR | Parser: error parsing item 10 -> {'name': 'Ava', 'age': 'fdK'}
+2026-03-03 14:43:22,478 | INFO | Parser: successfully parsed item 11 -> {'name': 'Mia', 'age': 86}
+2026-03-03 14:43:22,479 | ERROR | Parser: error parsing item 12 -> {'name': 'Ethan', 'age': 'HULLFoBx'}
+2026-03-03 14:43:22,481 | ERROR | Parser: error parsing item 13 -> {'name': 'Charlotte', 'age': 'BVT'}
+2026-03-03 14:43:22,484 | ERROR | Parser: error parsing item 14 -> {'name': 'Olivia', 'age': 'mij'}
+2026-03-03 14:43:22,486 | INFO | Parser: finished, parsed 8 items
+2026-03-03 14:43:22,487 | INFO | Validator: start validation
+2026-03-03 14:43:22,489 | ERROR | Validator: invalid age for item 1 -> {'name': 'Lucas', 'age': -43}
+2026-03-03 14:43:22,491 | INFO | Validator: item 2 valid -> {'name': 'Liam', 'age': 18}
+2026-03-03 14:43:22,492 | INFO | Validator: item 3 valid -> {'name': 'Lucas', 'age': 91}
+2026-03-03 14:43:22,493 | ERROR | Validator: invalid age for item 4 -> {'name': 'Luna', 'age': -4}
+2026-03-03 14:43:22,495 | INFO | Validator: item 5 valid -> {'name': 'Isabella', 'age': 72}
+2026-03-03 14:43:22,496 | INFO | Validator: item 6 valid -> {'name': 'Ava', 'age': 22}
+2026-03-03 14:43:22,499 | INFO | Validator: item 7 valid -> {'name': 'Olivia', 'age': 96}
+2026-03-03 14:43:22,501 | INFO | Validator: item 8 valid -> {'name': 'Mia', 'age': 86}
+2026-03-03 14:43:22,502 | INFO | Validator: finished, validated 6 items
+2026-03-03 14:43:22,534 | INFO | AI Analyzer: Przygotowano payload. Nowe błędy: 8 (Health: 81.4%)
+2026-03-03 14:43:22,544 | INFO | 🚀 WYKRYTO NOWE BŁĘDY (8). Raport: /app/shared_data/to_analyze.txt

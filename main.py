@@ -1,5 +1,7 @@
 import time
 import os
+from datetime import datetime
+from zoneinfo import ZoneInfo
 from app.logger import logger
 
 # Importujemy metody Twojego systemu
@@ -13,6 +15,14 @@ from app.ai_adapter import build_prompt
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 SHARED_DIR = os.path.join(BASE_DIR, "shared_data")
 REPORT_FILE = os.path.join(SHARED_DIR, "to_analyze.txt")
+LAST_REPORT_FILE = os.path.join(SHARED_DIR, "last_report.txt")
+
+# 2. STREFA CZASOWA
+TZ = ZoneInfo("Europe/Warsaw")
+
+
+def now_local():
+    return datetime.now(TZ).strftime("%H:%M:%S")
 
 
 def run_agent_cycle():
@@ -20,10 +30,10 @@ def run_agent_cycle():
     Jeden pełny cykl: Znakowanie sesji -> Praca -> Analiza -> Persystencja
     """
     print(f"\n{'='*40}")
-    print(f"🕒 START CYKLU: {time.strftime('%H:%M:%S')}")
+    print(f"🕒 START CYKLU: {now_local()}")
     print(f"{'='*40}")
 
-    # KROK 1: Nowa sesja (Filtr w logger.py teraz na to patrzy!)
+    # KROK 1: Nowa sesja
     logger.info("==================================================")
     logger.info("NEW SESSION STARTED | Automatic Monitoring Cycle")
     logger.info("==================================================")
@@ -35,10 +45,9 @@ def run_agent_cycle():
         validate_data(parsed)
         print("✅ Praca modułów zakończona.")
     except Exception as e:
-        # Ten błąd zawsze zobaczysz, bo jest krytyczny (nie pochodzi z parsera/validatora)
         logger.error(f"Niespodziewany błąd krytyczny: {e}")
 
-    # KROK 3: Analiza (Deduplikacja odbywa się wewnątrz build_ai_payload)
+    # KROK 3: Analiza
     payload = build_ai_payload()
 
     # KROK 4: Budowanie promptu
@@ -51,17 +60,15 @@ def run_agent_cycle():
             f.write(prompt)
 
         new_errors = payload.get("logs", {}).get("new_errors_found", 0)
-        logger.info(f"🚀 WYKRYTO NOWE BŁĘDY ({new_errors}). Raport: {REPORT_FILE}")
+        # Logujemy ścieżkę last_report.txt (to co n8n zapisuje po analizie)
+        logger.info(f"🚀 WYKRYTO NOWE BŁĘDY ({new_errors}). Raport: {LAST_REPORT_FILE}")
         print("❗ Znaleziono nowe błędy. Prompt wygenerowany.")
     else:
-        # Jeśli prompt jest pusty, to znaczy, że błędy są stare (ukryte przez filtr)
-        # albo system jest faktycznie czysty.
         logger.info("✅ System czysty. Brak nowych błędów w bieżącym interwale.")
         print("✅ Brak nowych błędów do raportowania.")
 
 
 if __name__ == "__main__":
-    # Upewniamy się, że folder na dane istnieje od razu
     os.makedirs(SHARED_DIR, exist_ok=True)
 
     logger.info("🚀 Agent monitorujący uruchomiony w Dockerze...")
@@ -69,7 +76,6 @@ if __name__ == "__main__":
     try:
         while True:
             run_agent_cycle()
-
             print("😴 Następne sprawdzenie za 5 minut")
             time.sleep(300)
     except KeyboardInterrupt:
