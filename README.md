@@ -1,6 +1,7 @@
 # Projekt4 — AI-Driven SRE Monitoring System
 
 A self-contained monitoring pipeline that combines a **Python observability agent** with **AI-powered orchestration** (n8n + Google Gemini). The system detects anomalies, analyzes root causes via LLM, delivers alerts to Telegram, and serves a live SRE dashboard — all running in Docker.
+Fore more details, check INTERNALS.md
 
 ---
 

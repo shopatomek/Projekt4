@@ -26,6 +26,10 @@ dist/
 build/
 *.egg-info/
 *.log
+shared_data/to_analyze.txt
+shared_data/last_report.txt
+shared_data/error_cache.json
+shared_data/archive/
 
 # Konfiguracja VS Code (opcjonalnie)
 .vscode/
