@@ -1,21 +1,45 @@
-2026-03-03 14:38:22,293 | INFO | 🚀 Agent monitorujący uruchomiony w Dockerze...
-2026-03-03 14:38:22,298 | INFO | ==================================================
-2026-03-03 14:38:22,303 | INFO | NEW SESSION STARTED | Automatic Monitoring Cycle
-2026-03-03 14:38:22,307 | INFO | ==================================================
-2026-03-03 14:38:22,314 | INFO | Scraper: start scraping data
-2026-03-03 14:38:22,347 | INFO | Parser: start parsing data
-2026-03-03 14:38:22,360 | ERROR | Parser: error parsing item 7 -> {'name': 'Isabella', 'age': 'dwmGb'}
-2026-03-03 14:38:22,366 | ERROR | Parser: error parsing item 11 -> {'name': 'Ava', 'age': 'Cbrhg'}
-2026-03-03 14:38:22,380 | INFO | Validator: start validation
-2026-03-03 14:38:22,388 | ERROR | Validator: invalid age for item 5 -> {'name': 'Amelia', 'age': -1}
-2026-03-03 14:38:22,392 | ERROR | Validator: invalid age for item 7 -> {'name': 'Mason', 'age': -44}
-2026-03-03 14:38:22,438 | INFO | AI Analyzer: Przygotowano payload. Nowe błędy: 4 (Health: 92.9%)
-2026-03-03 14:38:22,448 | INFO | 🚀 WYKRYTO NOWE BŁĘDY (4). Raport: /app/shared_data/to_analyze.txt
-2026-03-03 14:43:22,429 | INFO | ==================================================
-2026-03-03 14:43:22,432 | INFO | NEW SESSION STARTED | Automatic Monitoring Cycle
-2026-03-03 14:43:22,434 | INFO | ==================================================
-2026-03-03 14:43:22,437 | INFO | Scraper: start scraping data
-2026-03-03 14:43:22,461 | INFO | Parser: start parsing data
-2026-03-03 14:43:22,487 | INFO | Validator: start validation
-2026-03-03 14:43:22,534 | INFO | AI Analyzer: Przygotowano payload. Nowe błędy: 8 (Health: 81.4%)
-2026-03-03 14:43:22,544 | INFO | 🚀 WYKRYTO NOWE BŁĘDY (8). Raport: /app/shared_data/to_analyze.txt
+2026-03-04 12:00:46,030 | INFO | ==================================================
+2026-03-04 12:00:46,031 | INFO | NEW SESSION STARTED | Debugging Payload
+2026-03-04 12:00:46,031 | INFO | ==================================================
+2026-03-04 12:00:46,031 | INFO | Scraper: start scraping data
+2026-03-04 12:00:46,034 | INFO | Parser: start parsing data
+2026-03-04 12:00:46,034 | ERROR | Parser: error parsing item 5 -> {'name': 'Luna', 'age': 'OEAp'}
+2026-03-04 12:00:46,035 | ERROR | Parser: error parsing item 6 -> {'name': 'Ethan', 'age': 'DsbGRXPB'}
+2026-03-04 12:00:46,035 | ERROR | Parser: error parsing item 7 -> {'name': 'Ethan', 'age': 'oDunqnsC'}
+2026-03-04 12:00:46,035 | ERROR | Parser: error parsing item 9 -> {'name': 'Ethan', 'age': 'HSVc'}
+2026-03-04 12:00:46,036 | INFO | Validator: start validation
+2026-03-04 12:00:46,037 | ERROR | Validator: invalid age for item 3 -> {'name': 'Liam', 'age': -23}
+2026-03-04 12:00:46,037 | ERROR | Validator: invalid age for item 4 -> {'name': 'Luna', 'age': -7}
+2026-03-04 12:00:46,037 | ERROR | Validator: invalid age for item 6 -> {'name': 'Lucas', 'age': -47}
+2026-03-04 12:00:46,037 | ERROR | Validator: invalid age for item 7 -> {'name': 'Ethan', 'age': -16}
+2026-03-04 12:00:46,038 | ERROR | Validator: invalid age for item 9 -> {'name': 'Logan', 'age': -42}
+2026-03-04 12:00:46,038 | ERROR | Validator: invalid age for item 15 -> {'name': 'Isabella', 'age': -6}
+2026-03-04 12:00:46,060 | INFO | AI Analyzer: Przygotowano payload. Nowe błędy: 10 (Health: 83.3%)
+2026-03-04 12:01:24,708 | INFO | ==================================================
+2026-03-04 12:01:24,709 | INFO | NEW SESSION STARTED | Debugging AI Analyzer
+2026-03-04 12:01:24,709 | INFO | ==================================================
+2026-03-04 12:01:24,709 | INFO | Scraper: start scraping data
+2026-03-04 12:01:24,712 | INFO | Parser: start parsing data
+2026-03-04 12:01:24,715 | INFO | Validator: start validation
+2026-03-04 12:01:24,741 | INFO | AI Analyzer: Przygotowano payload. Nowe błędy: 9 (Health: 83.0%)
+2026-03-04 12:02:31,725 | INFO | AI Analyzer: Te same błędy co w poprzednim cyklu. Pomijam raport.
+2026-03-04 12:02:31,726 | INFO | AI Client: Starting analysis (Mock mode: True)
+2026-03-04 12:03:11,496 | INFO | AI Analyzer: Te same błędy co w poprzednim cyklu. Pomijam raport.
+2026-03-04 12:03:48,367 | INFO | AI Client: Starting analysis (Mock mode: True)
+2026-03-04 12:03:49,872 | INFO | AI Client: Starting analysis (Mock mode: False)
+2026-03-04 12:03:49,876 | INFO | AI Client: Starting analysis (Mock mode: True)
+2026-03-04 12:04:31,741 | INFO | AI Analyzer: Te same błędy co w poprzednim cyklu. Pomijam raport.
+2026-03-04 12:04:31,769 | INFO | AI Analyzer: Te same błędy co w poprzednim cyklu. Pomijam raport.
+2026-03-04 12:04:31,792 | INFO | AI Analyzer: Te same błędy co w poprzednim cyklu. Pomijam raport.
+2026-03-04 12:04:31,813 | INFO | AI Analyzer: Te same błędy co w poprzednim cyklu. Pomijam raport.
+2026-03-04 12:04:31,837 | INFO | AI Analyzer: Te same błędy co w poprzednim cyklu. Pomijam raport.
+2026-03-04 12:06:26,260 | INFO | AI Analyzer: Te same błędy co w poprzednim cyklu. Pomijam raport.
+2026-03-04 12:07:37,316 | INFO | 🚀 Agent monitorujący uruchomiony w Dockerze...
+2026-03-04 12:07:37,320 | INFO | ==================================================
+2026-03-04 12:07:37,324 | INFO | NEW SESSION STARTED | Automatic Monitoring Cycle
+2026-03-04 12:07:37,326 | INFO | ==================================================
+2026-03-04 12:07:37,329 | INFO | Scraper: start scraping data
+2026-03-04 12:07:37,360 | INFO | Parser: start parsing data
+2026-03-04 12:07:37,402 | INFO | Validator: start validation
+2026-03-04 12:07:37,467 | INFO | AI Analyzer: Przygotowano payload. Nowe błędy: 9 (Health: 83.6%)
+2026-03-04 12:07:37,476 | INFO | 🚀 WYKRYTO NOWE BŁĘDY (9). Raport: /app/shared_data/to_analyze.txt

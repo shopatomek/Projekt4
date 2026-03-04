@@ -1,0 +1,48 @@
+### SYSTEM CONTEXT
+==================
+Status: ERROR
+System Health Score: 83.6%
+Error Rate: 16.4%
+Total events analyzed: 55
+Total errors detected: 9
+Generated at: 2026-03-04T12:07:37.466865
+
+### MODULE ACTIVITY
+==================
+Scraper: 20 events
+Parser: 20 events
+Validator: 14 events
+
+### UNIQUE ERROR ANALYSIS
+=========================
+1) ERROR: Parser: error parsing item 7 -> {'name': 'Sophia', 'age': 'juy'}
+   OCCURRENCES: 1
+------------------------------
+2) ERROR: Parser: error parsing item 10 -> {'name': 'Elijah', 'age': 'RcZeae'}
+   OCCURRENCES: 1
+------------------------------
+3) ERROR: Parser: error parsing item 11 -> {'name': 'Eva', 'age': 'BmHpNGk'}
+   OCCURRENCES: 1
+------------------------------
+4) ERROR: Parser: error parsing item 12 -> {'name': 'Charlotte', 'age': 'JAJUnkfP'}
+   OCCURRENCES: 1
+------------------------------
+5) ERROR: Parser: error parsing item 16 -> {'name': 'Noah', 'age': 'YXl'}
+   OCCURRENCES: 1
+------------------------------
+6) ERROR: Parser: error parsing item 18 -> {'name': 'Sophia', 'age': 'GBIgOIX'}
+   OCCURRENCES: 1
+------------------------------
+7) ERROR: Validator: invalid age for item 2 -> {'name': 'Oliver', 'age': -17}
+   OCCURRENCES: 1
+------------------------------
+8) ERROR: Validator: invalid age for item 6 -> {'name': 'Luna', 'age': -35}
+   OCCURRENCES: 1
+------------------------------
+9) ERROR: Validator: invalid age for item 7 -> {'name': 'Mia', 'age': -36}
+   OCCURRENCES: 1
+------------------------------
+
+### INSTRUCTIONS
+================
+Przeanalizuj błędy, zwróć uwagę na Health Score i zaproponuj rozwiązanie.

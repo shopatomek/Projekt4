@@ -10,6 +10,7 @@ python -m scripts.debug_ai_analyzer
 python -m pytest tests/test_ai_client.py
 python -m pytest tests/test_ai_analyzer.py
 python -m pytest tests/test_ai_adapter.py
+python -m pytest tests/test_logging.py
 
 ## Docker
 
