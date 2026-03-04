@@ -111,13 +111,21 @@ TELEGRAM_CHAT_ID=your_chat_id
 docker-compose up -d --build
 ```
 
-### 4. Configure n8n (one-time)
+### 4. Configure n8n (one-time setup)
 
-1. Open `http://localhost:5678`
+1. Open `http://localhost:5678` and create an account
 2. **Import workflow:** Top-right menu → **Import from File** → select `n8n/monitoring_workflow.json`
-3. **Add credentials:** Open the Gemini and Telegram nodes → link your API keys
-4. **Activate:** Toggle the **Active** switch (top-right)
-5. **Dashboard:** `http://localhost:5678/webhook/dashboard`
+3. **Add Gemini credentials:**
+   - Double-click the **Message a model** node
+   - Click **Credential for Google Gemini** → **Create New**
+   - Paste your `GOOGLE_PALM_API_KEY`
+4. **Add Telegram credentials:**
+   - Double-click the **Send a text message** node
+   - Click **Credential for Telegram** → **Create New**
+   - Paste your `TELEGRAM_BOT_TOKEN`
+   - Set your `TELEGRAM_CHAT_ID` in the node parameters
+5. **Activate:** Toggle the **Active** switch (top-right)
+6. **Dashboard:** `http://localhost:5678/webhook/dashboard`
 
 ---
 
