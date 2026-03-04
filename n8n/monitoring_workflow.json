@@ -1,0 +1,326 @@
+{
+  "name": "Projekt4",
+  "nodes": [
+    {
+      "parameters": {
+        "jsCode": "const fs = require('fs');\n\nconst sourcePath = '/home/node/.n8n-files/to_analyze.txt';\nconst lastReportPath = '/home/node/.n8n-files/last_report.txt';\nconst archiveDir = '/home/node/.n8n-files/archive';\n\n// Utwórz archiwum jeśli nie istnieje\nif (!fs.existsSync(archiveDir)) {\n    fs.mkdirSync(archiveDir, { recursive: true });\n}\n\n// Pobierz wynik Gemini z odpowiedzi Telegrama (result.text = tekst wysłanej wiadomości)\nconst raw = $input.first().json;\nconst geminiResult = \n    raw?.result?.text ||\n    raw?.content?.parts?.[0]?.text ||\n    raw?.text ||\n    '';\n\n// Zapisz ostatni raport Gemini (dashboard będzie to czytał)\nconst report = {\n    timestamp: new Date().toISOString(),\n    analysis: geminiResult\n};\nfs.writeFileSync(lastReportPath, JSON.stringify(report, null, 2));\n\n// Archiwizuj oryginalny plik zamiast usuwać\nif (fs.existsSync(sourcePath)) {\n    const ts = new Date().toISOString().replace(/[:.]/g, '-');\n    fs.renameSync(sourcePath, `${archiveDir}/to_analyze_${ts}.txt`);\n}\n\nreturn $input.all();"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1728,
+        -64
+      ],
+      "id": "6a194ec1-0d93-4fb9-bc1d-faaa6087fe2b",
+      "name": "Code in JavaScript2"
+    },
+    {
+      "parameters": {
+        "path": "dashboard",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        368,
+        -416
+      ],
+      "id": "aa85e04c-cb48-4deb-a6f9-0df5bb41f829",
+      "name": "Webhook1",
+      "webhookId": "YOUR_WEBHOOK_ID",
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const fs = require('fs');\nconst path = require('path');\n\n// ── 1. DANE Z last_report.txt ─────────────────────────────────────────────────\nconst inputData = $input.first().json;\nlet analysis = \"\";\nlet timestamp = \"brak danych\";\nlet isStale = false;\n\ntry {\n    const raw = inputData?.data || (typeof inputData === 'string' ? inputData : JSON.stringify(inputData));\n    const report = JSON.parse(raw);\n    analysis = report.analysis || \"\";\n    timestamp = report.timestamp || \"brak danych\";\n    if (timestamp !== \"brak danych\") {\n        const ageMinutes = (Date.now() - new Date(timestamp).getTime()) / 60000;\n        isStale = ageMinutes > 10;\n    }\n} catch (e) {\n    analysis = inputData?.data || JSON.stringify(inputData, null, 2);\n}\n\nif (!analysis || analysis.trim() === \"\") {\n    analysis = \"⏳ Brak danych — czekam na pierwszą analizę Gemini...\";\n}\n\n// ── 2. HISTORIA Z ARCHIWUM ────────────────────────────────────────────────────\nconst archiveDir = '/home/node/data/archive';\nlet historyRows = '';\nlet chartLabels = [];\nlet chartScores = [];\nlet totalAnalyses = 0;\nlet avgScore = 0;\nlet minScore = 100;\nlet maxScore = 0;\n\ntry {\n    if (fs.existsSync(archiveDir)) {\n        const files = fs.readdirSync(archiveDir)\n            .filter(f => f.endsWith('.txt'))\n            .sort()\n            .slice(-10); // ostatnie 10\n\n        totalAnalyses = files.length;\n        let scoreSum = 0;\n        let scoreCount = 0;\n\n        files.forEach((file, idx) => {\n            try {\n                const content = fs.readFileSync(path.join(archiveDir, file), 'utf8');\n                \n                // Wyciągnij timestamp z nazwy pliku: to_analyze_2026-02-27T13-48-16-320Z.txt\n                const tsMatch = file.match(/to_analyze_(.+)\\.txt/);\n                const fileTs = tsMatch ? tsMatch[1].replace(/T(\\d{2})-(\\d{2})-(\\d{2})-(\\d{3})Z/, 'T$1:$2:$3.$4Z') : '';\n                let displayTime = fileTs ? new Date(fileTs).toLocaleString('pl-PL', {timeZone:'Europe/Warsaw'}) : file;\n\n                // Wyciągnij Health Score z pliku\n                const scoreMatch = content.match(/Health Score:\\s*([\\d.]+)%/) || content.match(/([\\d.]+)%/);\n                const score = scoreMatch ? parseFloat(scoreMatch[1]) : null;\n                const errorMatch = content.match(/Error Rate:\\s*([\\d.]+)%/);\n                const errorRate = errorMatch ? errorMatch[1] : '—';\n                const eventsMatch = content.match(/Total events analyzed:\\s*(\\d+)/);\n                const events = eventsMatch ? eventsMatch[1] : '—';\n\n                if (score !== null) {\n                    scoreSum += score;\n                    scoreCount++;\n                    if (score < minScore) minScore = score;\n                    if (score > maxScore) maxScore = score;\n                    chartLabels.push(displayTime.split(',')[0]); // tylko data\n                    chartScores.push(score);\n                }\n\n                const statusDot = score === null ? '⚪' : score >= 90 ? '🟢' : score >= 75 ? '🟡' : '🔴';\n                const scoreDisplay = score !== null ? `${score.toFixed(1)}%` : '—';\n                const rowClass = score !== null && score < 80 ? 'row-alert' : '';\n\n                historyRows += `\n                <tr class=\"${rowClass}\">\n                    <td class=\"ts-cell\">${displayTime}</td>\n                    <td>${statusDot} <span class=\"score-val\">${scoreDisplay}</span></td>\n                    <td class=\"text-muted\">${errorRate}%</td>\n                    <td class=\"text-muted\">${events}</td>\n                </tr>`;\n            } catch(e2) {}\n        });\n\n        if (scoreCount > 0) avgScore = (scoreSum / scoreCount).toFixed(1);\n        if (minScore === 100) minScore = 0;\n    }\n} catch(e) {}\n\n// ── 3. PARSOWANIE BIEŻĄCEJ ANALIZY ───────────────────────────────────────────\nconst safeAnalysis = analysis\n    .replace(/&/g, '&amp;')\n    .replace(/</g, '&lt;')\n    .replace(/>/g, '&gt;');\n\nconst healthMatch = safeAnalysis.match(/([\\d]+(?:\\.[\\d]+)?)%/) || safeAnalysis.match(/Health Score:?\\s*([\\d]+)/i);\nconst healthScore = healthMatch ? parseFloat(healthMatch[1]) : null;\nconst healthDisplay = healthScore !== null ? healthScore.toFixed(1) : '??';\n\nconst errorMatch = safeAnalysis.match(/Error Rate:?\\s*([\\d.]+)%/i);\nconst errorDisplay = errorMatch ? errorMatch[1] : '??';\n\nconst eventsMatch = safeAnalysis.match(/Total events analyzed:?\\s*(\\d+)/i);\nconst eventsDisplay = eventsMatch ? eventsMatch[1] : '??';\n\nconst errorsMatch = safeAnalysis.match(/Total errors detected:?\\s*(\\d+)/i);\nconst errorsDisplay = errorsMatch ? errorsMatch[1] : '??';\n\n// Status systemu\nlet statusLabel, statusColor, statusGlow, gaugeColor;\nif (healthScore === null) {\n    statusLabel = 'UNKNOWN'; statusColor = '#64748b'; statusGlow = '#64748b'; gaugeColor = '#64748b';\n} else if (healthScore >= 90) {\n    statusLabel = 'HEALTHY'; statusColor = '#10b981'; statusGlow = '#10b981'; gaugeColor = '#10b981';\n} else if (healthScore >= 75) {\n    statusLabel = 'DEGRADED'; statusColor = '#f59e0b'; statusGlow = '#f59e0b'; gaugeColor = '#f59e0b';\n} else {\n    statusLabel = 'CRITICAL'; statusColor = '#ef4444'; statusGlow = '#ef4444'; gaugeColor = '#ef4444';\n}\n\n// Gauge SVG - arc od -135° do +135° (270° łuk)\nconst gaugeValue = healthScore !== null ? Math.min(Math.max(healthScore, 0), 100) : 0;\nconst gaugeAngle = (gaugeValue / 100) * 270 - 135;\nconst r = 54;\nconst cx = 70, cy = 70;\nfunction polarToXY(deg, radius) {\n    const rad = (deg - 90) * Math.PI / 180;\n    return { x: cx + radius * Math.cos(rad), y: cy + radius * Math.sin(rad) };\n}\nconst startPt = polarToXY(-135, r);\nconst endPt = polarToXY(gaugeAngle, r);\nconst largeArc = (gaugeAngle - (-135)) > 180 ? 1 : 0;\nconst gaugePath = `M ${startPt.x} ${startPt.y} A ${r} ${r} 0 ${largeArc} 1 ${endPt.x} ${endPt.y}`;\nconst bgEndPt = polarToXY(135, r);\nconst bgPath = `M ${startPt.x} ${startPt.y} A ${r} ${r} 0 1 1 ${bgEndPt.x} ${bgEndPt.y}`;\n\nconst formattedTimestamp = timestamp !== \"brak danych\"\n    ? new Date(timestamp).toLocaleString('pl-PL', { timeZone: 'Europe/Warsaw' })\n    : \"brak danych\";\n\nconst refreshInterval = 60;\nconst chartLabelsJSON = JSON.stringify(chartLabels);\nconst chartScoresJSON = JSON.stringify(chartScores);\n\n// ── 4. HTML ───────────────────────────────────────────────────────────────────\nconst html = `<!DOCTYPE html>\n<html lang=\"pl\">\n<head>\n<meta charset=\"UTF-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n<title>SRE Operations Center</title>\n<link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\n<link href=\"https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Syne:wght@400;600;800&display=swap\" rel=\"stylesheet\">\n<script src=\"https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js\"></script>\n<style>\n:root {\n    --bg: #060b14;\n    --surface: #0d1626;\n    --surface2: #111d33;\n    --border: #1e3a5f;\n    --text: #cdd9f0;\n    --muted: #4a6494;\n    --accent: #38bdf8;\n    --status: ${statusColor};\n    --glow: ${statusGlow};\n    --mono: 'JetBrains Mono', monospace;\n    --sans: 'Syne', sans-serif;\n}\n* { box-sizing: border-box; margin: 0; padding: 0; }\nbody {\n    background: var(--bg);\n    color: var(--text);\n    font-family: var(--mono);\n    min-height: 100vh;\n    background-image: \n        radial-gradient(ellipse 80% 50% at 50% -20%, #0e2a4a44, transparent),\n        repeating-linear-gradient(0deg, transparent, transparent 39px, #1e3a5f11 39px, #1e3a5f11 40px),\n        repeating-linear-gradient(90deg, transparent, transparent 39px, #1e3a5f11 39px, #1e3a5f11 40px);\n}\n\n/* TOPBAR */\n.topbar {\n    display: flex;\n    align-items: center;\n    justify-content: space-between;\n    padding: 14px 32px;\n    background: rgba(13,22,38,0.95);\n    border-bottom: 1px solid var(--border);\n    backdrop-filter: blur(10px);\n    position: sticky;\n    top: 0;\n    z-index: 100;\n}\n.topbar-brand {\n    font-family: var(--sans);\n    font-weight: 800;\n    font-size: 1.1rem;\n    letter-spacing: 0.05em;\n    color: var(--accent);\n    display: flex;\n    align-items: center;\n    gap: 10px;\n}\n.topbar-brand::before {\n    content: '';\n    width: 8px; height: 8px;\n    border-radius: 50%;\n    background: var(--status);\n    box-shadow: 0 0 8px var(--glow);\n    animation: pulse 2s infinite;\n}\n@keyframes pulse {\n    0%, 100% { opacity: 1; transform: scale(1); }\n    50% { opacity: 0.5; transform: scale(0.85); }\n}\n.topbar-meta {\n    display: flex;\n    gap: 24px;\n    align-items: center;\n    font-size: 0.72rem;\n    color: var(--muted);\n}\n.topbar-meta span { display: flex; align-items: center; gap: 6px; }\n.status-badge {\n    font-family: var(--sans);\n    font-weight: 600;\n    font-size: 0.78rem;\n    letter-spacing: 0.12em;\n    padding: 4px 14px;\n    border-radius: 2px;\n    border: 1px solid var(--status);\n    color: var(--status);\n    box-shadow: 0 0 12px ${statusGlow}44;\n}\n\n/* REFRESH BAR */\n.refresh-bar { height: 2px; background: var(--surface2); }\n.refresh-fill {\n    height: 100%;\n    background: linear-gradient(90deg, var(--accent), #818cf8);\n    transition: width 1s linear;\n}\n\n/* LAYOUT */\n.main { padding: 24px 32px; max-width: 1400px; margin: 0 auto; }\n\n/* KPI ROW */\n.kpi-row {\n    display: grid;\n    grid-template-columns: repeat(4, 1fr);\n    gap: 16px;\n    margin-bottom: 24px;\n}\n.kpi-card {\n    background: var(--surface);\n    border: 1px solid var(--border);\n    border-radius: 4px;\n    padding: 18px 20px;\n    position: relative;\n    overflow: hidden;\n}\n.kpi-card::before {\n    content: '';\n    position: absolute;\n    top: 0; left: 0; right: 0;\n    height: 2px;\n    background: var(--accent);\n}\n.kpi-card.alert::before { background: #ef4444; }\n.kpi-card.warn::before { background: #f59e0b; }\n.kpi-label {\n    font-size: 0.65rem;\n    letter-spacing: 0.15em;\n    text-transform: uppercase;\n    color: var(--muted);\n    margin-bottom: 8px;\n}\n.kpi-value {\n    font-family: var(--sans);\n    font-weight: 800;\n    font-size: 2rem;\n    line-height: 1;\n    color: var(--text);\n}\n.kpi-value.status-color { color: var(--status); }\n.kpi-sub { font-size: 0.7rem; color: var(--muted); margin-top: 4px; }\n\n/* MIDDLE GRID */\n.mid-grid {\n    display: grid;\n    grid-template-columns: 160px 1fr;\n    gap: 16px;\n    margin-bottom: 24px;\n    align-items: start;\n}\n\n/* GAUGE */\n.gauge-card {\n    background: var(--surface);\n    border: 1px solid var(--border);\n    border-radius: 4px;\n    padding: 20px 16px;\n    text-align: center;\n}\n.gauge-card svg { overflow: visible; }\n.gauge-label {\n    font-size: 0.62rem;\n    letter-spacing: 0.12em;\n    text-transform: uppercase;\n    color: var(--muted);\n    margin-top: 8px;\n}\n\n/* CHART */\n.chart-card {\n    background: var(--surface);\n    border: 1px solid var(--border);\n    border-radius: 4px;\n    padding: 20px;\n}\n.card-title {\n    font-size: 0.65rem;\n    letter-spacing: 0.15em;\n    text-transform: uppercase;\n    color: var(--muted);\n    margin-bottom: 14px;\n}\n.chart-wrap { height: 120px; }\n\n/* BOTTOM GRID */\n.bottom-grid {\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n    gap: 16px;\n}\n\n/* TERMINAL */\n.terminal-card {\n    background: var(--surface);\n    border: 1px solid var(--border);\n    border-radius: 4px;\n    overflow: hidden;\n}\n.terminal-header {\n    display: flex;\n    align-items: center;\n    gap: 8px;\n    padding: 10px 16px;\n    background: var(--surface2);\n    border-bottom: 1px solid var(--border);\n}\n.dot { width: 10px; height: 10px; border-radius: 50%; }\n.terminal-title { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-left: 4px; }\n.terminal-body {\n    padding: 16px;\n    font-size: 0.75rem;\n    line-height: 1.7;\n    color: #10b981;\n    white-space: pre-wrap;\n    overflow-y: auto;\n    max-height: 360px;\n    background: #020810;\n}\n.terminal-body::-webkit-scrollbar { width: 4px; }\n.terminal-body::-webkit-scrollbar-track { background: transparent; }\n.terminal-body::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }\n\n/* HISTORY TABLE */\n.history-card {\n    background: var(--surface);\n    border: 1px solid var(--border);\n    border-radius: 4px;\n    overflow: hidden;\n}\n.history-header {\n    padding: 12px 16px;\n    background: var(--surface2);\n    border-bottom: 1px solid var(--border);\n    display: flex;\n    justify-content: space-between;\n    align-items: center;\n}\n.history-count {\n    font-size: 0.65rem;\n    color: var(--muted);\n}\ntable { width: 100%; border-collapse: collapse; }\nth {\n    font-size: 0.6rem;\n    letter-spacing: 0.12em;\n    text-transform: uppercase;\n    color: var(--muted);\n    padding: 8px 12px;\n    text-align: left;\n    border-bottom: 1px solid var(--border);\n    font-weight: 400;\n}\ntd {\n    font-size: 0.72rem;\n    padding: 9px 12px;\n    border-bottom: 1px solid #1e3a5f44;\n    color: var(--text);\n}\ntr.row-alert td { background: #ef444408; }\ntr:last-child td { border-bottom: none; }\n.ts-cell { color: var(--muted); font-size: 0.67rem; }\n.score-val { font-weight: 600; }\n\n/* STALE WARNING */\n.stale-bar {\n    background: #7c3aed22;\n    border-left: 3px solid #7c3aed;\n    padding: 8px 16px;\n    font-size: 0.72rem;\n    color: #c4b5fd;\n    margin-bottom: 16px;\n}\n\n@media (max-width: 900px) {\n    .kpi-row { grid-template-columns: repeat(2,1fr); }\n    .mid-grid { grid-template-columns: 1fr; }\n    .bottom-grid { grid-template-columns: 1fr; }\n    .main { padding: 16px; }\n}\n</style>\n</head>\n<body>\n\n<!-- TOPBAR -->\n<div class=\"topbar\">\n    <div class=\"topbar-brand\">SRE OPERATIONS CENTER</div>\n    <div class=\"topbar-meta\">\n        <span>📅 ${formattedTimestamp}</span>\n        <span>🔄 odświeżenie za <strong id=\"cdown\" style=\"color:var(--accent)\">${refreshInterval}</strong>s</span>\n        <div class=\"status-badge\">${statusLabel}</div>\n    </div>\n</div>\n<div class=\"refresh-bar\"><div class=\"refresh-fill\" id=\"rfill\" style=\"width:100%\"></div></div>\n\n<div class=\"main\">\n\n    ${isStale ? `<div class=\"stale-bar\">⚠ Dane nieaktualne — ostatnia analiza: ${formattedTimestamp}</div>` : ''}\n\n    <!-- KPI ROW -->\n    <div class=\"kpi-row\">\n        <div class=\"kpi-card\">\n            <div class=\"kpi-label\">Health Score</div>\n            <div class=\"kpi-value status-color\">${healthDisplay}${healthScore !== null ? '%' : ''}</div>\n            <div class=\"kpi-sub\">aktualny cykl</div>\n        </div>\n        <div class=\"kpi-card ${parseFloat(errorDisplay) > 15 ? 'alert' : parseFloat(errorDisplay) > 8 ? 'warn' : ''}\">\n            <div class=\"kpi-label\">Error Rate</div>\n            <div class=\"kpi-value\">${errorDisplay}${errorDisplay !== '??' ? '%' : ''}</div>\n            <div class=\"kpi-sub\">bieżący raport</div>\n        </div>\n        <div class=\"kpi-card\">\n            <div class=\"kpi-label\">Events Analyzed</div>\n            <div class=\"kpi-value\">${eventsDisplay}</div>\n            <div class=\"kpi-sub\">w ostatnim cyklu</div>\n        </div>\n        <div class=\"kpi-card\">\n            <div class=\"kpi-label\">Avg Health (hist.)</div>\n            <div class=\"kpi-value\">${avgScore || '—'}${avgScore ? '%' : ''}</div>\n            <div class=\"kpi-sub\">ostatnie ${totalAnalyses} analiz</div>\n        </div>\n    </div>\n\n    <!-- GAUGE + CHART -->\n    <div class=\"mid-grid\">\n        <div class=\"gauge-card\">\n            <svg width=\"140\" height=\"100\" viewBox=\"0 0 140 100\">\n                <defs>\n                    <filter id=\"glow\">\n                        <feGaussianBlur stdDeviation=\"3\" result=\"coloredBlur\"/>\n                        <feMerge><feMergeNode in=\"coloredBlur\"/><feMergeNode in=\"SourceGraphic\"/></feMerge>\n                    </filter>\n                </defs>\n                <!-- BG arc -->\n                <path d=\"${bgPath}\" fill=\"none\" stroke=\"#1e3a5f\" stroke-width=\"10\" stroke-linecap=\"round\"/>\n                <!-- Value arc -->\n                <path d=\"${gaugePath}\" fill=\"none\" stroke=\"${gaugeColor}\" stroke-width=\"10\" stroke-linecap=\"round\" filter=\"url(#glow)\"/>\n                <!-- Center value -->\n                <text x=\"70\" y=\"66\" text-anchor=\"middle\" font-family=\"Syne,sans-serif\" font-weight=\"800\" font-size=\"22\" fill=\"${gaugeColor}\">${healthDisplay}</text>\n                <text x=\"70\" y=\"80\" text-anchor=\"middle\" font-family=\"JetBrains Mono,monospace\" font-size=\"9\" fill=\"#4a6494\">HEALTH %</text>\n            </svg>\n            <div class=\"gauge-label\">System Status</div>\n        </div>\n\n        <div class=\"chart-card\">\n            <div class=\"card-title\">Health Score — historia analiz</div>\n            <div class=\"chart-wrap\">\n                <canvas id=\"trendChart\"></canvas>\n            </div>\n        </div>\n    </div>\n\n    <!-- TERMINAL + HISTORY -->\n    <div class=\"bottom-grid\">\n\n        <div class=\"terminal-card\">\n            <div class=\"terminal-header\">\n                <div class=\"dot\" style=\"background:#ef4444\"></div>\n                <div class=\"dot\" style=\"background:#f59e0b\"></div>\n                <div class=\"dot\" style=\"background:#10b981\"></div>\n                <span class=\"terminal-title\">Gemini SRE Analysis</span>\n            </div>\n            <div class=\"terminal-body\">${safeAnalysis}</div>\n        </div>\n\n        <div class=\"history-card\">\n            <div class=\"history-header\">\n                <div class=\"card-title\" style=\"margin:0\">Archive Log</div>\n                <div class=\"history-count\">${totalAnalyses} rekordów</div>\n            </div>\n            ${historyRows ? `\n            <table>\n                <thead>\n                    <tr>\n                        <th>Timestamp</th>\n                        <th>Health</th>\n                        <th>Err Rate</th>\n                        <th>Events</th>\n                    </tr>\n                </thead>\n                <tbody>${historyRows}</tbody>\n            </table>` : `<div style=\"padding:24px;color:var(--muted);font-size:0.8rem;\">Brak danych historycznych</div>`}\n        </div>\n\n    </div>\n</div>\n\n<script>\n// Chart.js trend\nconst labels = ${chartLabelsJSON};\nconst scores = ${chartScoresJSON};\n\nif (labels.length > 0) {\n    const ctx = document.getElementById('trendChart').getContext('2d');\n    new Chart(ctx, {\n        type: 'line',\n        data: {\n            labels,\n            datasets: [{\n                data: scores,\n                borderColor: '${statusColor}',\n                backgroundColor: '${statusColor}22',\n                borderWidth: 2,\n                pointRadius: 3,\n                pointBackgroundColor: '${statusColor}',\n                fill: true,\n                tension: 0.4\n            }]\n        },\n        options: {\n            responsive: true,\n            maintainAspectRatio: false,\n            plugins: { legend: { display: false } },\n            scales: {\n                x: {\n                    ticks: { color: '#4a6494', font: { size: 9, family: 'JetBrains Mono' }, maxRotation: 30 },\n                    grid: { color: '#1e3a5f55' }\n                },\n                y: {\n                    min: Math.max(0, Math.min(...scores) - 5),\n                    max: 100,\n                    ticks: { color: '#4a6494', font: { size: 9 }, callback: v => v + '%' },\n                    grid: { color: '#1e3a5f55' }\n                }\n            }\n        }\n    });\n}\n\n// Auto-refresh countdown\nlet rem = ${refreshInterval};\nconst cdown = document.getElementById('cdown');\nconst rfill = document.getElementById('rfill');\nsetInterval(() => {\n    rem--;\n    cdown.textContent = rem;\n    rfill.style.width = ((rem / ${refreshInterval}) * 100) + '%';\n    if (rem <= 0) location.reload();\n}, 1000);\n</script>\n</body>\n</html>`;\n\nreturn [{ json: { html } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1216,
+        -384
+      ],
+      "id": "0d1a68e5-31fe-452e-a59c-d15c96efdb92",
+      "name": "Code in JavaScript3"
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "={{ $json.html }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "text/html"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        1456,
+        -336
+      ],
+      "id": "edb4288b-eb3f-4399-baa8-d8bed174d2b3",
+      "name": "Respond to Webhook1"
+    },
+    {
+      "parameters": {
+        "fileSelector": "/home/node/.n8n-files/last_report.txt",
+        "options": {
+          "fileExtension": "",
+          "mimeType": ""
+        }
+      },
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1.1,
+      "position": [
+        736,
+        -352
+      ],
+      "id": "898833f4-167a-4ac4-8b96-b7c5cc6843fe",
+      "name": "Read/Write Files from Disk",
+      "alwaysOutputData": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "fileSelector": "/home/node/.n8n-files/to_analyze.txt",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1.1,
+      "position": [
+        896,
+        -32
+      ],
+      "id": "d3c315fb-85ef-4155-b9da-dc1d91cc1310",
+      "name": "Read/Write Files from Disk3",
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "operation": "text",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1.1,
+      "position": [
+        1056,
+        -32
+      ],
+      "id": "4f691414-d79e-45cb-a0fa-cc17b37c8ab1",
+      "name": "Extract from File2"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-robotics-er-1.5-preview",
+          "mode": "list",
+          "cachedResultName": "models/gemini-robotics-er-1.5-preview"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=Act as a Senior SRE (Site Reliability Engineer). Analyze the provided system log report and format your response using Markdown for a Telegram and notification.\n\n### Structure:\n🚨 **ALERT SUMMARY**: (1 sentence summary)\n📊 **SYSTEM HEALTH**: (Health Score and Error Rate)\n🔍 **ROOT CAUSE**: (Identify which module fails and why)\n❌ **FAULTY ITEMS**: (List up to 5 specific examples of items that caused errors, e.g., \"Item 5: age='SkWDvFg'\")\n🛠️ **ACTION PLAN**: (Concrete technical steps to fix this)\n\nKeep it concise, technical, and professional.\nLOG REPORT:\n{{ $node[\"Extract from File2\"].json[\"data\"] }}"
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1.1,
+      "position": [
+        1200,
+        -32
+      ],
+      "id": "4f62263c-5965-4ed6-936c-4c0318ecd2a5",
+      "name": "Message a model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "YOUR_CREDENTIAL_ID",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "YOUR_TELEGRAM_CHAT_ID",
+        "text": "={{ $json.content.parts[0].text }}",
+        "additionalFields": {
+          "parse_mode": "HTML"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1488,
+        -48
+      ],
+      "id": "24a0c651-7580-4a30-afdc-72e481a3f094",
+      "name": "Send a text message",
+      "webhookId": "YOUR_WEBHOOK_ID",
+      "credentials": {
+        "telegramApi": {
+          "id": "YOUR_CREDENTIAL_ID",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": 1
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        672,
+        0
+      ],
+      "id": "9067603e-e806-489c-936b-eeb191f72b2e",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "operation": "text",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1.1,
+      "position": [
+        992,
+        -368
+      ],
+      "id": "261d7e2e-2462-4aab-bbf6-431464aa8d25",
+      "name": "Extract from File3"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook1": {
+      "main": [
+        [
+          {
+            "node": "Read/Write Files from Disk",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript3": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read/Write Files from Disk": {
+      "main": [
+        [
+          {
+            "node": "Extract from File3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read/Write Files from Disk3": {
+      "main": [
+        [
+          {
+            "node": "Extract from File2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File2": {
+      "main": [
+        [
+          {
+            "node": "Message a model",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a text message": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Read/Write Files from Disk3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File3": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "YOUR_INSTANCE_ID"
+  },
+  "id": "",
+  "tags": []
+}
