@@ -91,7 +91,7 @@ Gemini is only called when the Health Score drops below threshold — avoiding u
 
 ### Prerequisites
 
-- Docker + Docker Compose
+- Docker + Docker Compose → [install Docker Desktop](https://docs.docker.com/engine/install/)
 - A Google Gemini API key → [aistudio.google.com](https://aistudio.google.com/)
 - A Telegram bot token → [create with BotFather](https://t.me/BotFather)
 
