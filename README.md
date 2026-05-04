@@ -231,10 +231,10 @@ python scripts/debug_ai_client.py
 
 ## 🔑 API Keys
 
-| Service           | Key Required | Sign Up                                             |
-| ----------------- | ------------ | --------------------------------------------------- |
-| **Google Gemini** | ✅ YES       | [aistudio.google.com](https://aistudio.google.com/) |
-| **Telegram Bot**  | ✅ YES       | [@BotFather](https://t.me/BotFather) on Telegram    |
+| Service               | Key Required | Sign Up                                             |
+| --------------------- | ------------ | --------------------------------------------------- |
+| **Google Gemini 1.5** | ✅ YES       | [aistudio.google.com](https://aistudio.google.com/) |
+| **Telegram Bot**      | ✅ YES       | [@BotFather](https://t.me/BotFather) on Telegram    |
 
 ---
 
