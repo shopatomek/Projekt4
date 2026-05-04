@@ -18,7 +18,7 @@ docker-compose up --build
 docker-compose up -d
 docker logs -f projekt4
 
-## Zrób to, aby odświeżyć agenta po zmianie kodu python w projekcie:
+## Odśwież agenta jeżeli jeżeli kod python został zmieniony
 
 Zatrzymaj wszystko: docker-compose down
 
