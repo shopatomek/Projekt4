@@ -259,7 +259,6 @@ python scripts/debug_ai_client.py
 - [x] Non-root Docker containers with UID/GID mapping
 - [x] Scoped n8n filesystem access
 - [ ] Multi-host support (remote scraping targets)
-- [ ] Slack alerting channel
 - [ ] Prometheus metrics export
 
 ---
